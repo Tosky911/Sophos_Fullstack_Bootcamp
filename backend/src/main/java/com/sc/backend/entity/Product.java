@@ -23,7 +23,7 @@ public class Product {
 	private double balance;
 	
 	//Tipo de cuenta
-	private int typeAccount;
+	private String typeAccount;
 	
 	//Numero de cuenta
 	private String numAccount;
@@ -39,7 +39,7 @@ public class Product {
 	}
 
 	//Constructor
-	public Product(Long id, Long userId, double balance, int typeAccount, String numAccount, String creationDate,
+	public Product(Long id, Long userId, double balance, String typeAccount, String numAccount, String creationDate,
 			String state) {
 		super();
 		this.productId = id;
@@ -77,11 +77,11 @@ public class Product {
 		this.balance = balance;
 	}
 
-	public int getTypeAccount() {
+	public String getTypeAccount() {
 		return typeAccount;
 	}
 
-	public void setTypeAccount(int typeAccount) {
+	public void setTypeAccount(String typeAccount) {
 		this.typeAccount = typeAccount;
 	}
 
