@@ -50,13 +50,13 @@ public class Transaction {
 
 	//Constructor
 	
-	public Transaction(Long id, Long principalProductId, Long secundaryProductId, String transactionType,
+	public Transaction(Long id, Long principalProductId, Long secondaryProductId, String transactionType,
 			double transactionValue, String transactionDate, String transactionDetails, String transactionResult,
 			double finalBalance, double GMF, String financeMovement) {
 		super();
 		this.transactionId = id;
 		this.principalProductId = principalProductId;
-		this.secondaryProductId = secundaryProductId;
+		this.secondaryProductId = secondaryProductId;
 		this.transactionType = transactionType;
 		this.transactionValue = transactionValue;
 		this.transactionDate = transactionDate;
@@ -85,12 +85,12 @@ public class Transaction {
 		this.principalProductId = principalProductId;
 	}
 
-	public Long getSecundaryProductId() {
+	public Long getSecondaryProductId() {
 		return secondaryProductId;
 	}
 
-	public void setSecundaryProductId(Long secundaryProductId) {
-		this.secondaryProductId = secundaryProductId;
+	public void setSecondaryProductId(Long secondaryProductId) {
+		this.secondaryProductId = secondaryProductId;
 	}
 
 	public String getTransactionType() {
