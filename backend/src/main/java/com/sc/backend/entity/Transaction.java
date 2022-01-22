@@ -18,7 +18,7 @@ public class Transaction {
 	//Valor con el que se asocia a la entidad Product
 	@JoinColumn(name = "productId")
 	private Long principalProductId;
-	private Long secundaryProductId;
+	private Long secondaryProductId;
 	
 	//Tipo transaccion
 	private String transactionType;
@@ -56,7 +56,7 @@ public class Transaction {
 		super();
 		this.transactionId = id;
 		this.principalProductId = principalProductId;
-		this.secundaryProductId = secundaryProductId;
+		this.secondaryProductId = secundaryProductId;
 		this.transactionType = transactionType;
 		this.transactionValue = transactionValue;
 		this.transactionDate = transactionDate;
@@ -86,11 +86,11 @@ public class Transaction {
 	}
 
 	public Long getSecundaryProductId() {
-		return secundaryProductId;
+		return secondaryProductId;
 	}
 
 	public void setSecundaryProductId(Long secundaryProductId) {
-		this.secundaryProductId = secundaryProductId;
+		this.secondaryProductId = secundaryProductId;
 	}
 
 	public String getTransactionType() {
