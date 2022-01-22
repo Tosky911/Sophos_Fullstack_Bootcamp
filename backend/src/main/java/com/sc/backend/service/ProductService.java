@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sc.backend.entity.Product;
+import com.sc.backend.interfaceService.InterfaceProductService;
+import com.sc.backend.interfaceService.InterfaceTransactionService;
+import com.sc.backend.repository.ProductRepository;
 
 @Service
 public class ProductService implements InterfaceProductService{
@@ -48,17 +51,17 @@ public class ProductService implements InterfaceProductService{
 	
 	@Override
 	public Product cancelProduct(Product product) {
-		return productRepository.save(Product);
+		return productRepository.save(product);
 	}
 	
 	@Override 
 	public Product addToBalance(Product product, int movement) {
-		return productRepository.save(Product);
+		return productRepository.save(product);
 	}
 	
 	@Override
 	public Product withdrawToBalance(Product product, int movement) {
-		return productRepository.save(Product);
+		return productRepository.save(product);
 	}
 	
 	

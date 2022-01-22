@@ -2,6 +2,7 @@ package com.sc.backend.controller;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sc.backend.entity.Product;
 import com.sc.backend.entity.User;
+import com.sc.backend.interfaceService.InterfaceProductService;
+import com.sc.backend.interfaceService.InterfaceUserService;
 
 @CrossOrigin(origins= "http://localhost:4200")
 @RestController
@@ -44,8 +47,8 @@ public class UserController {
 	
 	//Alistar un usuario por su Id
 	@GetMapping("/{id}")
-	public User listIdOneUser(@PathVariable("id") Long id) {
-		return serviceUser.listIdOneUser(id);
+	public Optional<User> listIdOneUser(@PathVariable("id") Long id) {
+		return serviceUser.listOneUserId(id);
 	}
 	
 	//Editar la info de un usuario por su Id
@@ -58,7 +61,7 @@ public class UserController {
 	//Eliminar la info de un usuario por su Id
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable("id") Long id) {
-		List<Product> product = serviceProduct.listIdProduct(id);
+		List<Product> product = serviceProduct.listProductId(id);
 		int state_count = 0;
 		for (Product model: product) {
 			if (model.getState().equals("activa") || model.getState().equals("inactiva")) {

@@ -9,7 +9,7 @@ public interface InterfaceProductService {
 	public Product listOneProductId(Long productId);
 	public Product addProduct(Product product, Long userId);
 	public Product changeState(Product product);
-	public Product updateBalance(Product product, Long userId);
+	public Product updateBalance(Product product);
 	public List<Product> listIdOtherAvailableProducts(Long userId, Long productId);
 	public Product cancelProduct(Product product);
 	public Product addToBalance(Product product, int movement);

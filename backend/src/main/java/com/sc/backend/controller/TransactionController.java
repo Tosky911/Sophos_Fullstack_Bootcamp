@@ -1,5 +1,7 @@
 package com.sc.backend.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sc.backend.entity.Product;
 import com.sc.backend.entity.Transaction;
+import com.sc.backend.interfaceService.InterfaceProductService;
+import com.sc.backend.interfaceService.InterfaceTransactionService;
 
 @CrossOrigin(origins = "http:localhost:4200")
 @RestController
@@ -22,13 +26,13 @@ public class TransactionController {
 	InterfaceTransactionService serviceTransaction;
 	
 	@Autowired
-	InterfaceProducService serviceProduct;
+	InterfaceProductService serviceProduct;
 	
 	//Crear una transaccion
 	@PostMapping("")
 	@ResponseBody
 	public Transaction saveTransaction(@RequestBody Transaction transaction, @PathVariable("productId") Long productId) {
-		Product product = serviceProduct.listIdOneProduct(productId);
+		Product product = serviceProduct.listOneProductId(productId);
 		transaction.setPrincipalProductId(productId);
 				
 		//Si el producto esta cancelado
@@ -103,7 +107,7 @@ public class TransactionController {
 		//Si la transaccion es una transferencia y el producto esta activo
 		else if(transaction.getTransactionType().equals("Transferencia") && product.getState().equals("activa")) {
 			//Receptor de la transferencia
-			Product productReceiver = serviceProduct.listIdOneProduct(transaction.getSecondaryProductId());
+			Product productReceiver = serviceProduct.listOneProductId(transaction.getSecondaryProductId());
 			//Si la cuenta es de ahorros y el saldo menos el costo de la transacion (incluyendo GMF 0.4% ~ 4x1000) es mayor a 0
 			if (product.getTypeAccount().equals("ahorros") && product.getBalance() - (1.004 * transaction.getTransactionValue()) >=0 ) {
 				transaction.setSecondaryProductId(transaction.getSecondaryProductId());
@@ -206,8 +210,8 @@ public class TransactionController {
 	
 	//Obtener la transaccion por cuenta, por usuario
 	@GetMapping("")
-	public List<Transaction> listIdTransaction(@PathVariable("productId") int principalProductId){
-		return serviceTransaction.listIdTransaction(principalProductId);
+	public List<Transaction> listIdTransaction(@PathVariable("productId") Long principalProductId){
+		return serviceTransaction.listTransactionId(principalProductId);
 	}
 	
 }

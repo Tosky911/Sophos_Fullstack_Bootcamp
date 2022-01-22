@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sc.backend.entity.Product;
 import com.sc.backend.entity.Transaction;
+import com.sc.backend.interfaceService.InterfaceProductService;
+import com.sc.backend.interfaceService.InterfaceTransactionService;
 
 @CrossOrigin(origins= "http://localhost:4200")
 @RestController
@@ -30,13 +32,13 @@ public class ProductController {
 	//Alistar los productos del usuario
 	@GetMapping("")
 	public List<Product> listIdProduct(@PathVariable("userId") Long userId){
-		return serviceProduct.listIdProduct(userId);
+		return serviceProduct.listProductId(userId);
 	}
 	
 	//Lista de los productos diferentes al seleccionado
 	@GetMapping("/{productId}/different")
 	public List<Product> listIdOtherAvailableProducts(@PathVariable("userId") Long userId, @PathVariable("productId") Long productId){
-		return serviceProduct.listIdOtherAvaibleProducts(userId,productId);
+		return serviceProduct.listIdOtherAvailableProducts(userId,productId);
 	}
 	
 	//Crear un nuevo producto para un cliente
@@ -59,7 +61,7 @@ public class ProductController {
 	//Obtener un producto de un usuario
 	@GetMapping("/{productId}")
 	public Product ListIdOneProduct(@PathVariable("productId") Long productId){
-		return serviceProduct.listIdOneProduct(productId);
+		return serviceProduct.listOneProductId(productId);
 	}
 	
 	//Cambiar el estado a activo o inactivo
