@@ -1,11 +1,13 @@
 package com.sc.backend.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sc.backend.entity.User;
+import com.sc.backend.interfaceService.InterfaceUserService;
 import com.sc.backend.repository.UserRepository;
 
 @Service
@@ -20,7 +22,7 @@ public class UserService implements InterfaceUserService{
 	}	
 	
 	@Override
-	public User listOneUserId(Long id) {
+	public Optional<User> listOneUserId(Long id) {
 		return userRepository.findById(id);
 	}
 	
