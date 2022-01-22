@@ -13,7 +13,7 @@ public class Product {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long productId;
 	
 	//Valor con el que se asocia a la entidad User
 	@JoinColumn(name = "userId")
@@ -42,7 +42,7 @@ public class Product {
 	public Product(Long id, Long userId, double balance, int typeAccount, String numAccount, String creationDate,
 			String state) {
 		super();
-		this.id = id;
+		this.productId = id;
 		this.userId = userId;
 		this.balance = balance;
 		this.typeAccount = typeAccount;
@@ -53,12 +53,12 @@ public class Product {
 
 	//Getter and Setters
 	
-	public Long getId() {
-		return id;
+	public Long getproductId() {
+		return productId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setproductId(Long id) {
+		this.productId = id;
 	}
 
 	public Long getUserId() {
