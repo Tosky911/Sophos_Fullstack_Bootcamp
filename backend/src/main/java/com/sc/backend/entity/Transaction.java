@@ -13,7 +13,7 @@ public class Transaction {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long transactionId;
 	
 	//Valor con el que se asocia a la entidad Product
 	@JoinColumn(name = "productId")
@@ -54,7 +54,7 @@ public class Transaction {
 			double transactionValue, String transactionDate, String transactionDetails, String transactionResult,
 			double finalBalance, double GMF, String financeMovement) {
 		super();
-		this.id = id;
+		this.transactionId = id;
 		this.principalProductId = principalProductId;
 		this.secundaryProductId = secundaryProductId;
 		this.transactionType = transactionType;
@@ -70,11 +70,11 @@ public class Transaction {
 	//Getters and Setters
 
 	public Long getId() {
-		return id;
+		return transactionId;
 	}
 
 	public void setId(Long id) {
-		this.id = id;
+		this.transactionId = id;
 	}
 
 	public Long getPrincipalProductId() {
