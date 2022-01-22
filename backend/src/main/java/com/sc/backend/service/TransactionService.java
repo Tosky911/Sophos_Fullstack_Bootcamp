@@ -10,16 +10,16 @@ import com.sc.backend.entity.Transaction;
 public class TransactionService implements InterfaceTransactionService{
 
 	@Autowired
-	private InterfaceTransaction interfaceTransaction;
+	private TransactionRepository transactionRepository;
 	
 	@Override
 	public Transaction createTransaction(Transaction transaction, Long principalProductId) {
-		return interfaceTransaction.save(transaction);
+		return transactionRepository.save(transaction);
 	}
 	
 	@Override
 	public List<Transaction> ListIdTransaction(Long principalProductId) {
-		return interfaceTransaction.findByProductPrincipalIdAndTransactionResult(principalProductId, "Efectiva");
+		return transactionRepository.findByProductPrincipalIdAndTransactionResult(principalProductId, "Efectiva");
 	}
 	
 	

@@ -14,51 +14,51 @@ public class ProductService implements InterfaceProductService{
 	InterfaceTransactionService transactionService;
 	
 	@Autowired
-	private InterfaceProduct interfaceProduct;
+	private ProductRepository productRepository;
 	
 	@Override
 	public List<Product> listProductId(Long userId){
-		return interfaceProduct.findByUserId(userId);
+		return productRepository.findByUserId(userId);
 	}
 	
 	@Override
 	public Product listOneProductId(Long productId) {
-		return interfaceProduct.findByProductId(productId);
+		return productRepository.findByProductId(productId);
 	}
 	
 	@Override
 	public Product addProduct(Product product, Long userId) {
-		return interfaceProduct.save(product);
+		return productRepository.save(product);
 	}
 	
 	@Override
 	public Product changeState(Product product) {
-		return interfaceProduct.save(product);
+		return productRepository.save(product);
 	}
 	
 	@Override
 	public Product updateBalance(Product product) {
-		return interfaceProduct.save(product);
+		return productRepository.save(product);
 	}
 	
 	@Override
 	public List<Product> listIdOtherAvailableProducts(Long userId, Long productId){
-		return interfaceProduct.findByStateNotAndUserIdNotAndProductIdNot("Cancelado", userId, productId);
+		return productRepository.findByStateNotAndUserIdNotAndProductIdNot("Cancelado", userId, productId);
 	}
 	
 	@Override
 	public Product cancelProduct(Product product) {
-		return interfaceProduct.save(Product);
+		return productRepository.save(Product);
 	}
 	
 	@Override 
 	public Product addToBalance(Product product, int movement) {
-		return interfaceProduct.save(Product);
+		return productRepository.save(Product);
 	}
 	
 	@Override
 	public Product withdrawToBalance(Product product, int movement) {
-		return interfaceProduct.save(Product);
+		return productRepository.save(Product);
 	}
 	
 	
