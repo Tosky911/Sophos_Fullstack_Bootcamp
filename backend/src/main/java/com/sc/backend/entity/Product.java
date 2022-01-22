@@ -16,7 +16,7 @@ public class Product {
 	private Long id;
 	
 	//Valor con el que se asocia a la entidad User
-	@JoinColumn(name = "id")
+	@JoinColumn(name = "userId")
 	private Long userId;
 	
 	//Saldo de la cuenta
