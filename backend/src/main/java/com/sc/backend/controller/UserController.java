@@ -47,7 +47,7 @@ public class UserController {
 	
 	//Alistar un usuario por su Id
 	@GetMapping("/{id}")
-	public Optional<User> listIdOneUser(@PathVariable("id") Long id) {
+	public Optional<User> listOneUserId(@PathVariable("id") Long id) {
 		return serviceUser.listOneUserId(id);
 	}
 	
