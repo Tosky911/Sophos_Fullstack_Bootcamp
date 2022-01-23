@@ -1,1 +1,93 @@
-<p>add-user works!</p>
+<div class="container col-md-6">
+    <div class="card">
+        <div class="card-header">
+            <h3>Nuevos Usuarios</h3>
+        </div>
+        <div class="card-body">
+            <form class="row g-3 needs-validation" action="">
+                <div class="form-group col-md-6">
+                    <label for="firstName">Nombre</label>
+                    <input 
+                    id="firstName" 
+                    type="text" 
+                    class="form-control" 
+                    placeholder="Nombre"
+                    name="firstName"
+                    [(ngModel)]="user.firstName"
+                    required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="lastName">Apellidos</label>
+                    <input 
+                    id="lastName" 
+                    type="text" 
+                    class="form-control" 
+                    placeholder="Apellido"
+                    name="lastName"
+                    [(ngModel)]="user.lastName"
+                    required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="typeId">Tipo identificación</label>
+                    <select 
+                    id="typeId"                     
+                    class="form-select"                    
+                    name="typeId"
+                    [(ngModel)]="user.typeId"
+                    required>
+                        <option value="CC" selected>Cédula ciudadania</option>
+                        <option value="PA">Pasaporte</option>
+                        <option value="NIT">NIT</option>
+                        <option value="CE">Cédula extranjeria</option>
+                        <option value="TI">Tarjeta de identidad</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-8">
+                    <label for="numId">Número de identificación</label>
+                    <input 
+                    id="numId" 
+                    type="text" 
+                    class="form-control" 
+                    placeholder="123456789"
+                    name="numId"
+                    [(ngModel)]="user.numId"
+                    required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Correo electronico</label>
+                    <input 
+                    id="email" 
+                    type="email" 
+                    class="form-control" 
+                    placeholder="john_doe@email.com"
+                    name="email"
+                    [(ngModel)]="user.email"
+                    required>                    
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="username">Nombre de usuario</label>
+                    <input 
+                    id="username" 
+                    type="text" 
+                    class="form-control" 
+                    placeholder="Nombre"
+                    name="username"
+                    [(ngModel)]="user.username"
+                    required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="birthdayDate">Fecha de nacimiento</label>
+                    <input 
+                    id="birthdayDate" 
+                    type="date" 
+                    class="form-control"                     
+                    name="birthdayDate"
+                    [(ngModel)]="user.birthdayDate"
+                    required>
+                </div>
+                <button (click)="saveUser()" class="btn btn-success" type="submit">Guardar</button>
+            </form>
+            
+        </div>
+    </div>
+</div>
