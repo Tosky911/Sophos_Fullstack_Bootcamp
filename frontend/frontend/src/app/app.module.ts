@@ -15,6 +15,7 @@ import { AddProductComponent } from './product/add-product/add-product.component
 import { DeleteProductComponent } from './product/delete-product/delete-product.component';
 import { ListProductComponent } from './product/list-product/list-product.component';
 import { MoneyComponent } from './product/money/money.component';
+import { CreateTransactionComponent } from './transaction/create-transaction/create-transaction.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +27,7 @@ import { MoneyComponent } from './product/money/money.component';
     DeleteProductComponent,
     ListProductComponent,
     MoneyComponent,
+    CreateTransactionComponent,
   ],
   imports: [
     BrowserModule,
