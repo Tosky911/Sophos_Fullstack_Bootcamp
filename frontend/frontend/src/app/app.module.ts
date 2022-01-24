@@ -9,11 +9,13 @@ import { UserService } from './services/services/user/user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteUserComponent } from './user/delete-user/delete-user.component';
+import { EditUserComponent } from './user/edit-user/edit-user.component';
 @NgModule({
   declarations: [
     AppComponent,
     AddUserComponent,
     DeleteUserComponent,
+    EditUserComponent,
   ],
   imports: [
     BrowserModule,
