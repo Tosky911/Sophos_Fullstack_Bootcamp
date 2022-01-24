@@ -12,6 +12,7 @@ import { DeleteUserComponent } from './user/delete-user/delete-user.component';
 import { EditUserComponent } from './user/edit-user/edit-user.component';
 import { ListUserComponent } from './user/list-user/list-user.component';
 import { AddProductComponent } from './product/add-product/add-product.component';
+import { DeleteProductComponent } from './product/delete-product/delete-product.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,6 +21,7 @@ import { AddProductComponent } from './product/add-product/add-product.component
     EditUserComponent,
     ListUserComponent,
     AddProductComponent,
+    DeleteProductComponent,
   ],
   imports: [
     BrowserModule,
