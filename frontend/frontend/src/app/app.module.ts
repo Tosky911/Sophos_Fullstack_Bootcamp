@@ -11,6 +11,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteUserComponent } from './user/delete-user/delete-user.component';
 import { EditUserComponent } from './user/edit-user/edit-user.component';
 import { ListUserComponent } from './user/list-user/list-user.component';
+import { AddProductComponent } from './product/add-product/add-product.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,6 +19,7 @@ import { ListUserComponent } from './user/list-user/list-user.component';
     DeleteUserComponent,
     EditUserComponent,
     ListUserComponent,
+    AddProductComponent,
   ],
   imports: [
     BrowserModule,
