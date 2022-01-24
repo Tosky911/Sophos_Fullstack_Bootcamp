@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './home/home/home.component';
 import { AddProductComponent } from './product/add-product/add-product.component';
 import { MoneyComponent } from './product/money/money.component';
 import { CreateTransactionComponent } from './transaction/create-transaction/create-transaction.component';
@@ -10,7 +11,7 @@ import { EditUserComponent } from './user/edit-user/edit-user.component';
 import { ListUserComponent } from './user/list-user/list-user.component';
 
 const routes: Routes = [
-  {path:'', component:LandingComponent},
+  {path:'', component:HomeComponent},
   // To list all the clients
   {path:'users', component:ListUserComponent},
   // To create a client
