@@ -27,7 +27,7 @@ export class AddUserComponent implements OnInit {
     //Nombre de usuario
     username: '',
     //Nombres
-    firsName: '',
+    firstName: '',
     //Apellidos
     lastName: '',
     //Correo
@@ -45,7 +45,7 @@ export class AddUserComponent implements OnInit {
       typeId: this.user.typeId,
       numId: this.user.numId,
       username: this.user.username,
-      firstName: this.user.firsName,
+      firstName: this.user.firstName,
       lastName: this.user.lastName,
       email: this.user.email,
       birthdayDate: this.user.birthdayDate,

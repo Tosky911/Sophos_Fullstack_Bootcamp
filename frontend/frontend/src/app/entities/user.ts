@@ -7,7 +7,7 @@ export class User{
 	//Nombre de usuario
 	username?: String;
 	//Nombres
-	firsName?: String;
+	firstName?: String;
 	//Apellidos
 	lastName?: String;
 	//Correo
