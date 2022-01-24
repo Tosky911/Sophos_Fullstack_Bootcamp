@@ -17,6 +17,7 @@ import { ListProductComponent } from './product/list-product/list-product.compon
 import { MoneyComponent } from './product/money/money.component';
 import { CreateTransactionComponent } from './transaction/create-transaction/create-transaction.component';
 import { ListTransactionComponent } from './transaction/list-transaction/list-transaction.component';
+import { HomeComponent } from './home/home/home.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,6 +31,7 @@ import { ListTransactionComponent } from './transaction/list-transaction/list-tr
     MoneyComponent,
     CreateTransactionComponent,
     ListTransactionComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
