@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/entities/product';
 import { ProductService } from 'src/app/services/services/product/product.service';
 
+
 @Component({
   selector: 'app-money',
   templateUrl: './money.component.html',

@@ -45,7 +45,7 @@ export class ProductService {
 
   //Agregar dinero a un producto/cuenta
   addMoney(id: any, productId: any, money: any, data: any): Observable<any>{
-    const url = `${this.UrlProduct}${id}/products/${productId}/${money}/deposit`;
+    const url = `${this.UrlProduct}${id}/products/${productId}/${money}`;
     return this.http.put(url, data);
   }
 

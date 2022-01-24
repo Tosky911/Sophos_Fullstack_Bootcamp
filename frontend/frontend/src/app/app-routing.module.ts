@@ -11,7 +11,9 @@ import { EditUserComponent } from './user/edit-user/edit-user.component';
 import { ListUserComponent } from './user/list-user/list-user.component';
 
 const routes: Routes = [
-  {path:'', component:HomeComponent},
+  {path:'', pathMatch: 'full', redirectTo: 'app-home'},
+  //Redireccion a la pagina inicial
+  {path:'app-home', component:HomeComponent},
   // To list all the users
   {path:'users', component:ListUserComponent},
   // To create a user

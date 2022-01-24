@@ -55,7 +55,7 @@ export class CreateTransactionComponent implements OnInit {
       transactionType: this.transaction.transactionType ,
       transactionValue:this.transaction.transactionValue ,
       transactionDate: formatDate(this.dateNow, 'YYYY-MM-dd', 'en-US'),
-      transactionDetails:this.transaction.transactionDetails,
+      transactionDetails:this.transaction.transactionDetails
     };
 
     this.route.paramMap.subscribe((params) => {
@@ -63,8 +63,8 @@ export class CreateTransactionComponent implements OnInit {
           {
           next: () => {
             console.log(data)
-            alert("Transacción realizada");
-            this.router.navigate(['clients', params.get('id'), 'products',params.get('productId'),'transactions']);
+            alert("Transacción realizada con éxito");
+            this.router.navigate(['users', params.get('id'), 'products',params.get('productId'),'transactions']);
           },
           error: (e) => console.error(e),
         });
