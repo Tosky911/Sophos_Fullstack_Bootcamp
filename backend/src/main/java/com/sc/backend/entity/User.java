@@ -21,7 +21,7 @@ public class User {
 	//Nombre de usuario
 	private String username;
 	//Nombres
-	private String firsName;
+	private String firstName;
 	//Apellidos
 	private String lastName;
 	//Correo
@@ -41,7 +41,7 @@ public class User {
 		this.typeId = typeId;
 		this.numId = numId;
 		this.username = username;
-		this.firsName = firsName;
+		this.firstName = firsName;
 		this.lastName = lastName;
 		this.email = email;
 		this.birthdayDate = birthdayDate;
@@ -83,11 +83,11 @@ public class User {
 	}
 
 	public String getFirsName() {
-		return firsName;
+		return firstName;
 	}
 
 	public void setFirsName(String firsName) {
-		this.firsName = firsName;
+		this.firstName = firsName;
 	}
 
 	public String getLastName() {
