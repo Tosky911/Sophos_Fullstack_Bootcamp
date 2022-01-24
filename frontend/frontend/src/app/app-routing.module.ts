@@ -12,13 +12,13 @@ import { ListUserComponent } from './user/list-user/list-user.component';
 
 const routes: Routes = [
   {path:'', component:HomeComponent},
-  // To list all the clients
+  // To list all the users
   {path:'users', component:ListUserComponent},
-  // To create a client
+  // To create a user
   {path:'addUser', component:AddUserComponent},
-  // To edit a client info
+  // To edit a user info
   {path:'users/:id/products', component:EditUserComponent},
-  //To delete a client
+  //To delete a user
   {path:'users/:id/products', component:DeleteUserComponent},
   //To create a product
   {path:'users/:id/products/add', component:AddProductComponent},

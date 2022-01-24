@@ -19,7 +19,7 @@ import com.sc.backend.interfaceService.InterfaceTransactionService;
 
 @CrossOrigin(origins = "http:localhost:4200")
 @RestController
-@RequestMapping("/clients/{userId}/products/{productId}/transaction")
+@RequestMapping("/users/{userId}/products/{productId}/transaction")
 public class TransactionController {
 	
 	@Autowired
