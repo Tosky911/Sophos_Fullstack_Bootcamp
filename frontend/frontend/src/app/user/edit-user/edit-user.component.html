@@ -1,1 +1,112 @@
-<p>edit-user works!</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="card col-md-3">
+      <div class="card-header">
+        <h3>Editar Usuarios</h3>
+      </div>
+      <div class="card-body">
+        <form class="row g-0 needs-validation" action="">
+          <div class="form-group col-md-12 col-form-label-sm">
+            <label for="firstName">Nombre</label>
+            <input
+              id="firstName"
+              type="text"
+              class="form-control"
+              placeholder="Nombre"
+              name="firstName"
+              [(ngModel)]="currentUser.firstName"
+              required
+            />
+          </div>
+          <div class="form-group col-md-12 col-form-label-sm">
+            <label for="lastName">Apellidos</label>
+            <input
+              id="lastName"
+              type="text"
+              class="form-control"
+              placeholder="Apellido"
+              name="lastName"
+              [(ngModel)]="currentUser.lastName"
+              required
+            />
+          </div>
+          <div class="form-group col-md-4 col-form-label-sm">
+            <label for="typeId">Tipo id</label>
+            <select
+              id="typeId"
+              class="form-select"
+              name="typeId"
+              [(ngModel)]="currentUser.typeId"
+              required
+            >
+              <option value="CC" selected>CC | Cédula ciudadania</option>
+              <option value="PA">PA | Pasaporte</option>
+              <option value="NIT">NIT | NIT</option>
+              <option value="CE">CE | Cédula extranjeria</option>
+              <option value="TI">TI | Tarjeta de identidad</option>
+            </select>
+          </div>
+          <div class="form-group col-md-8 col-form-label-sm">
+            <label for="numId">Número de identificación</label>
+            <input
+              id="numId"
+              type="text"
+              class="form-control"
+              placeholder="123456789"
+              name="numId"
+              [(ngModel)]="currentUser.numId"
+              required
+            />
+          </div>
+          <div class="form-group col-md-12 col-form-label-sm">
+            <label for="email">Correo electronico</label>
+            <input
+              id="email"
+              type="email"
+              class="form-control"
+              placeholder="correo_ejemplo@email.com"
+              name="email"
+              [(ngModel)]="currentUser.email"
+              required
+            />
+          </div>
+          <div class="form-group col-md-12 col-form-label-sm">
+            <label for="username">Nombre de usuario</label>
+            <input
+              id="username"
+              type="text"
+              class="form-control"
+              placeholder="Nombre de usuario"
+              name="username"
+              [(ngModel)]="currentUser.username"
+              required
+            />
+          </div>
+          <div class="form-group col-md-12 col-form-label-sm">
+            <label for="birthdayDate">Fecha de nacimiento</label>
+            <input
+              id="birthdayDate"
+              type="date"
+              class="form-control"
+              name="birthdayDate"
+              [(ngModel)]="currentUser.birthdayDate"
+              required
+            />
+          </div>
+          <button (click)="updateClient()" class="btn btn-success" style="  width: 40%; margin-left: 10px; text-align: center; margin-bottom: 10px; margin-top: 10px;" type="submit">
+            Actualizar
+          </button>
+
+          <button (click)="deleteClient()" class="btn btn-danger" style=" width: 40%; margin-left: 10px; text-align: center; margin-bottom: 10px; margin-top: 10px;" type="submit">
+            Eliminar
+          </button>
+
+          <button (click)="backClient()" class="btn btn-info" style=" width: 40%; margin-left: 10px; text-align: center; margin-bottom: 10px; " type="submit">Atrás</button>
+        </form>
+      </div>
+    </div>
+    <div class="container col-md-9">
+      <app-list-product></app-list-product>
+    </div>
+  </div>
+</div>
