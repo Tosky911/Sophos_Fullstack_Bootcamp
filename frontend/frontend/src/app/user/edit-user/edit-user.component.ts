@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { User } from 'src/app/entities/user';
+import { UserService } from 'src/app/services/services/user/user.service';
 
 @Component({
   selector: 'app-edit-user',
@@ -10,8 +13,8 @@ export class EditUserComponent implements OnInit {
    currentUser: User = {
     typeId: '',
     numId: '',
-    firstname: '',
-    lastname: '',
+    firstName: '',
+    lastName: '',
     username: '',
     email: '',
     birthdayDate: '',
