@@ -1,0 +1,17 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="">
+      <img src="https://img.icons8.com/external-photo3ideastudio-lineal-photo3ideastudio/64/000000/external-bank-public-service-photo3ideastudio-lineal-photo3ideastudio.png" alt="Logo bank" width="50">
+      BankApp
+    </a>
+    <button (click)="New()" class="btn btn-dark" type="submit">Creacion de Usuarios</button>
+    <button (click)="List()" class="btn btn-dark" type="submit" style="margin-left: 10px ;">Panel de Usuarios</button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">    
+    </div>
+    <span class="navbar-text">
+      ¡Bienvenido a {{ title }}!
+    </span>
+  </div>  
+</nav>
+<hr>
+<router-outlet></router-outlet>
