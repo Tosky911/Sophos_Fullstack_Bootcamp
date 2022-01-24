@@ -1,1 +1,76 @@
-<p>list-product works!</p>
+<div class="container">
+    <div class="btn-holder" style="display: flex; margin-bottom: 10px">
+      <button (click)="AddProduct(9)" class="btn btn-success">
+        Crear Cuenta
+      </button>
+    </div>
+  
+    <div
+      *ngFor="let product of products"
+      class="card"
+      style="margin-bottom: 10px"
+    >
+      <div class="card-header">
+        <h3>Cuenta de {{ product.typeAccount }}</h3>
+      </div>
+      <div class="card-body">
+        <ul class="list-group">
+          <li class="list-group-item">
+            <span>Número de cuenta: </span> {{ product.numAccount }}
+          </li>
+          <li class="list-group-item">
+            <span>Saldo: </span> {{ product.balance }}
+          </li>
+          <li class="list-group-item">
+            <span>Estado: </span> {{ product.state }}
+          </li>
+          <li class="list-group-item">
+            <span>Fecha creación: </span>
+            {{ product.creationDate }}
+          </li>
+        </ul>
+      </div>
+      <div
+        class="btn-holder"
+        style="justify-content: flex-end; display: flex; margin-bottom: 10px"
+      >
+        <button
+          (click)="accountStatus(product.userId, product.productId)"
+          class="btn btn-dark"
+          style="margin-left: 5px; margin-right: 5px"
+        >
+          Estado cuenta
+        </button>
+        <button
+        (click)="addMovementMoney(product.userId, product.productId)"
+        class="btn btn-success"
+        style="margin-left: 5px; margin-right: 5px"
+      >
+        Movimientos
+      </button>
+  
+        <button
+          (click)="updateProduct(product.userId, product.productId)"
+          class="btn btn-warning"
+          style="margin-left: 5px; margin-right: 5px"
+        >
+          Cambiar Estado
+        </button>
+        <button
+          (click)="cancelProduct(product.userId, product.productId)"
+          class="btn btn-danger"
+          style="margin-left: 5px; margin-right: 5px"
+        >
+          Cancelar Cuenta
+        </button>
+      </div>
+  
+      <!-- <div class="collapse" id="#collapseExample">
+              <hr>
+              <div class="accordion-body">
+                Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+              </div>
+          </div> -->
+    </div>
+    <hr />
+  </div>
