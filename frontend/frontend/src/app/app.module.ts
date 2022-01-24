@@ -10,12 +10,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteUserComponent } from './user/delete-user/delete-user.component';
 import { EditUserComponent } from './user/edit-user/edit-user.component';
+import { ListUserComponent } from './user/list-user/list-user.component';
 @NgModule({
   declarations: [
     AppComponent,
     AddUserComponent,
     DeleteUserComponent,
     EditUserComponent,
+    ListUserComponent,
   ],
   imports: [
     BrowserModule,
