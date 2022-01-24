@@ -1,1 +1,42 @@
-<p>list-user works!</p>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h3>Usuarios registrados</h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped table-hover table-sm">
+            <thead>
+                <tr style="text-align:center;">
+                    <th> ID </th>
+                    <th> Tipo ID </th>
+                    <th> # Identificación </th>
+                    <th> Nombres </th>
+                    <th> Apellidos </th>
+                    <th> Correo Electrónico </th>
+                    <th> Nombre de usuario </th>
+                    <th> Fecha Nacimiento </th>
+                    <th> Fecha Creación </th>
+                    <th> Acciones </th>
+                </tr>
+            </thead>
+            <tbody class="align-middle;">
+                <tr *ngFor="let user of users" class="text-center">
+                    <td class="align-middle">{{user.id}}</td>
+                    <td class="align-middle">{{user.typeId}}</td>
+                    <td class="align-middle">{{user.numId}}</td>
+                    <td class="align-middle">{{user.firstName}}</td>
+                    <td class="align-middle">{{user.lastName}}</td>
+                    <td class="align-middle">{{user.email}}</td>
+                    <td class="align-middle">{{user.birthdayDate}}</td>
+                    <td class="align-middle">{{user.username}}</td>
+                    <td class="align-middle">{{user.creationDate}}</td>
+                    <td class="align-middle">
+
+                        <button (click)="EditUser(user.id)" class="btn btn-secondary">Acciones</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
