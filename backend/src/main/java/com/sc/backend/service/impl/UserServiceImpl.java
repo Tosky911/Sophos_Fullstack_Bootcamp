@@ -1,17 +1,21 @@
 package com.sc.backend.service.impl;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import com.sc.backend.entity.UserEntity;
 import com.sc.backend.repository.UserRepository;
 import com.sc.backend.service.UserService;
 
+@Service
 public class UserServiceImpl implements UserService, UserDetailsService{
 	@Autowired
 	UserRepository userRepository;

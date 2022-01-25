@@ -17,8 +17,11 @@ import com.sc.backend.service.impl.UserServiceImpl;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+	
+	/*Debe llamarse userDetailsService para que el 
+	AuthenticationManagerBuilder funcione */
 	@Autowired
-	private UserServiceImpl userServiceImpl;
+	private UserServiceImpl userDetailsService;
 	
 	@Autowired
 	private BCryptPasswordEncoder bcrypt;
@@ -34,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.customerServiceImpl(userServiceImpl).passwordEncoder(bcrypt);
+		auth.userDetailsService(userDetailsService).passwordEncoder(bcrypt);
 	}
 	
 	@Override

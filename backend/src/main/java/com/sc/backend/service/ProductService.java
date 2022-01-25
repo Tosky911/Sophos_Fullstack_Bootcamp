@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import com.sc.backend.entity.ProductEntity;
 
-@Service
 public interface ProductService{
 
 	public List<ProductEntity> listProductId(Long userId);

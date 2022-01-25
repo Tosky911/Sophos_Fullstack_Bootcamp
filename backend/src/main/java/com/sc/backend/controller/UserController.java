@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sc.backend.entity.UserEntity;
+import com.sc.backend.model.GeneralResponse;
+import com.sc.backend.service.UserService;
 import com.sc.backend.util.JwtUtils;
 
 @CrossOrigin(origins = "http:localhost:4200")

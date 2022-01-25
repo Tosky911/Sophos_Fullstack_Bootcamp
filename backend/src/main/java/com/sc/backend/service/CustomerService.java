@@ -10,7 +10,6 @@ import com.sc.backend.entity.CustomerEntity;
 import com.sc.backend.repository.CustomerRepository;
 import com.sc.backend.service.impl.CustomerServiceImpl;
 
-@Service
 public interface CustomerService{
 	
 	public List<CustomerEntity> list();
