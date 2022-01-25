@@ -19,20 +19,20 @@ import com.sc.backend.service.impl.TransactionServiceImpl;
 
 @CrossOrigin(origins = "http:localhost:4200")
 @RestController
-@RequestMapping("/users/{userId}/products/{productId}/transaction")
+@RequestMapping("/customers/{customerId}/products/{productId}/transaction")
 public class TransactionController {
 	
 	@Autowired
-	TransactionServiceImpl serviceTransaction;
+	TransactionServiceImpl transactionServiceImpl;
 	
 	@Autowired
-	ProductServiceImpl serviceProduct;
+	ProductServiceImpl productServiceImpl;
 	
 	//Crear una transaccion
 	@PostMapping("")
 	@ResponseBody
 	public TransactionEntity saveTransaction(@RequestBody TransactionEntity transactionEntity, @PathVariable("productId") Long productId) {
-		ProductEntity productEntity = serviceProduct.listOneProductId(productId);
+		ProductEntity productEntity = productServiceImpl.listOneProductId(productId);
 		transactionEntity.setPrincipalProductId(productId);
 				
 		//Si el producto esta cancelado
@@ -63,7 +63,7 @@ public class TransactionController {
 				transactionGMF.setTransactionDate(transactionEntity.getTransactionDate());
 				transactionGMF.setTransactionType("GMF");
 				transactionGMF.setFinanceMovement("Debito");
-				serviceTransaction.createTransaction(transactionGMF, productId);
+				transactionServiceImpl.createTransaction(transactionGMF, productId);
 				//Actualizar la transaccion
 				transactionEntity.setFinalBalance(productEntity.getBalance()- (1.004 * transactionEntity.getTransactionValue()));
 				transactionEntity.setTransactionValue(-transactionEntity.getTransactionValue());
@@ -87,7 +87,7 @@ public class TransactionController {
 				transactionGMF.setTransactionDate(transactionEntity.getTransactionDate());
 				transactionGMF.setTransactionType("GMF");
 				transactionGMF.setFinanceMovement("Debito");
-				serviceTransaction.createTransaction(transactionGMF, productId);
+				transactionServiceImpl.createTransaction(transactionGMF, productId);
 				
 				//Actualizar la transaccion
 				transactionEntity.setFinalBalance(productEntity.getBalance()- (1.004 * transactionEntity.getTransactionValue()));
@@ -107,7 +107,7 @@ public class TransactionController {
 		//Si la transaccion es una transferencia y el producto esta activo
 		else if(transactionEntity.getTransactionType().equals("Transferencia") && productEntity.getState().equals("activa")) {
 			//Receptor de la transferencia
-			ProductEntity productReceiver = serviceProduct.listOneProductId(transactionEntity.getSecondaryProductId());
+			ProductEntity productReceiver = productServiceImpl.listOneProductId(transactionEntity.getSecondaryProductId());
 			//Si la cuenta es de ahorros y el saldo menos el costo de la transacion (incluyendo GMF 0.4% ~ 4x1000) es mayor a 0
 			if (productEntity.getTypeAccount().equals("ahorros") && productEntity.getBalance() - (1.004 * transactionEntity.getTransactionValue()) >=0 ) {
 				transactionEntity.setSecondaryProductId(transactionEntity.getSecondaryProductId());
@@ -122,7 +122,7 @@ public class TransactionController {
 				transactionGMF.setTransactionDate(transactionEntity.getTransactionDate());
 				transactionGMF.setTransactionType("GMF");
 				transactionGMF.setFinanceMovement("Debito");
-				serviceTransaction.createTransaction(transactionGMF, productId);
+				transactionServiceImpl.createTransaction(transactionGMF, productId);
 				
 				//Actualizacion de la transaccion
 				transactionEntity.setFinalBalance(productEntity.getBalance()- (1.004 * transactionEntity.getTransactionValue()));
@@ -143,11 +143,11 @@ public class TransactionController {
 				transactionReceiver.setTransactionType("Recibido por transferencia");
 				transactionReceiver.setSecondaryProductId(transactionEntity.getPrincipalProductId());
 				transactionReceiver.setFinanceMovement("Credito");
-				serviceTransaction.createTransaction(transactionReceiver, transactionEntity.getSecondaryProductId());
+				transactionServiceImpl.createTransaction(transactionReceiver, transactionEntity.getSecondaryProductId());
 				
 				//Actualizar el saldo en el producto Emisor/Enviador
 				productReceiver.setBalance(transactionReceiver.getFinalBalance());
-				serviceProduct.updateBalance(productReceiver);
+				productServiceImpl.updateBalance(productReceiver);
 			}
 			//Si la cuenta es corriente y el saldo menos el costo de la transacion (incluyendo GMF 0.4% ~ 4x1000) es mayor a 2 millones
 			else if (productEntity.getTypeAccount().equals("corriente") && productEntity.getBalance() - (1.004 * transactionEntity.getTransactionValue()) >= -2000000) {
@@ -163,7 +163,7 @@ public class TransactionController {
 				transactionGMF.setTransactionDate(transactionEntity.getTransactionDate());
 				transactionGMF.setTransactionType("GMF");
 				transactionGMF.setFinanceMovement("Debito");
-				serviceTransaction.createTransaction(transactionGMF, productId);
+				transactionServiceImpl.createTransaction(transactionGMF, productId);
 				
 				//Actualizacion de la transaccion
 				transactionEntity.setFinalBalance(productEntity.getBalance()- (1.004 * transactionEntity.getTransactionValue()));
@@ -184,11 +184,11 @@ public class TransactionController {
 				transactionReceiver.setTransactionType("Recibido por transferencia");
 				transactionReceiver.setSecondaryProductId(transactionEntity.getPrincipalProductId());
 				transactionReceiver.setFinanceMovement("Credito");
-				serviceTransaction.createTransaction(transactionReceiver, transactionEntity.getSecondaryProductId());
+				transactionServiceImpl.createTransaction(transactionReceiver, transactionEntity.getSecondaryProductId());
 				
 				//Actualizar el saldo en el producto Emisor/Enviador
 				productReceiver.setBalance(transactionReceiver.getFinalBalance());
-				serviceProduct.updateBalance(productReceiver);
+				productServiceImpl.updateBalance(productReceiver);
 				
 			}
 			else {
@@ -203,15 +203,15 @@ public class TransactionController {
 		}
 		
 		productEntity.setBalance(transactionEntity.getFinalBalance());
-		serviceProduct.updateBalance(productEntity);
+		productServiceImpl.updateBalance(productEntity);
 		
-		return serviceTransaction.createTransaction(transactionEntity, productId);
+		return transactionServiceImpl.createTransaction(transactionEntity, productId);
 	}
 	
 	//Obtener la transaccion por cuenta, por usuario
 	@GetMapping("")
 	public List<TransactionEntity> listTransactionId(@PathVariable("productId") Long principalProductId){
-		return serviceTransaction.listTransactionId(principalProductId);
+		return transactionServiceImpl.listTransactionId(principalProductId);
 	}
 	
 }
