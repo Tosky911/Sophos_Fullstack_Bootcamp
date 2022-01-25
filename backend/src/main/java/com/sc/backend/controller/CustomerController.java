@@ -24,7 +24,7 @@ import com.sc.backend.interfaceService.InterfaceUserService;
 @CrossOrigin(origins= "http://localhost:4200")
 @RestController
 @RequestMapping("/users")
-public class UserController {
+public class CustomerController {
 
 	@Autowired
 	InterfaceUserService serviceUser;
