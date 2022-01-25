@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "products")
-public class Product {
+public class ProductEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,12 +34,12 @@ public class Product {
 	//Estado de la cuenta
 	private String state;
 
-	public Product() {
+	public ProductEntity() {
 		
 	}
 
 	//Constructor
-	public Product(Long id, Long userId, double balance, String typeAccount, String numAccount, String creationDate,
+	public ProductEntity(Long id, Long userId, double balance, String typeAccount, String numAccount, String creationDate,
 			String state) {
 		super();
 		this.productId = id;

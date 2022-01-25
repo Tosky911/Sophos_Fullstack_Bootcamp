@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sc.backend.entity.Product;
+import com.sc.backend.entity.ProductEntity;
 import com.sc.backend.entity.User;
 import com.sc.backend.interfaceService.InterfaceProductService;
 import com.sc.backend.interfaceService.InterfaceUserService;
@@ -61,9 +61,9 @@ public class UserController {
 	//Eliminar la info de un usuario por su Id
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable("id") Long id) {
-		List<Product> product = serviceProduct.listProductId(id);
+		List<ProductEntity> productEntity = serviceProduct.listProductId(id);
 		int state_count = 0;
-		for (Product model: product) {
+		for (ProductEntity model: productEntity) {
 			if (model.getState().equals("activa") || model.getState().equals("inactiva")) {
 				state_count ++;
 			}

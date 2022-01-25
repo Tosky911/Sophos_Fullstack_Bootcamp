@@ -6,18 +6,18 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.sc.backend.entity.Product;
+import com.sc.backend.entity.ProductEntity;
 
 @Repository
-public interface ProductRepository extends JpaRepository<Product, Long>{
+public interface ProductRepository extends JpaRepository<ProductEntity, Long>{
 	
 	//Lista con los productos de un usuario
-	List<Product> findByUserId (Long userId);
+	List<ProductEntity> findByUserId (Long userId);
 	
 	//Producto segun Id
-	Product findByProductId(Long productId);
+	ProductEntity findByProductId(Long productId);
 	
 	//Query por estado del producto
 	@Query(value = "select * from products where (state!=?1) AND NOT (user_id=?2 and product_id=?3)", nativeQuery = true)
-	List<Product> findByStateNotAndUserIdNotAndProductIdNot(String state, Long userId, Long productId);
+	List<ProductEntity> findByStateNotAndUserIdNotAndProductIdNot(String state, Long userId, Long productId);
 }

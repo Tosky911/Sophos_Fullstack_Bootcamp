@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sc.backend.entity.Product;
+import com.sc.backend.entity.ProductEntity;
 import com.sc.backend.entity.Transaction;
 import com.sc.backend.interfaceService.InterfaceProductService;
 import com.sc.backend.interfaceService.InterfaceTransactionService;
@@ -31,122 +31,122 @@ public class ProductController {
 	
 	//Alistar los productos del usuario
 	@GetMapping("")
-	public List<Product> listIdProduct(@PathVariable("userId") Long userId){
+	public List<ProductEntity> listIdProduct(@PathVariable("userId") Long userId){
 		return serviceProduct.listProductId(userId);
 	}
 	
 	//Lista de los productos diferentes al seleccionado
 	@GetMapping("/{productId}/different")
-	public List<Product> listIdOtherAvailableProducts(@PathVariable("userId") Long userId, @PathVariable("productId") Long productId){
+	public List<ProductEntity> listIdOtherAvailableProducts(@PathVariable("userId") Long userId, @PathVariable("productId") Long productId){
 		return serviceProduct.listIdOtherAvailableProducts(userId,productId);
 	}
 	
 	//Crear un nuevo producto para un cliente
 	@PostMapping("")
 	@ResponseBody
-	public Product save(@RequestBody Product product, @PathVariable("userId") Long userId, Transaction transaction ) {
-		product.setUserId(userId);
+	public ProductEntity save(@RequestBody ProductEntity productEntity, @PathVariable("userId") Long userId, Transaction transaction ) {
+		productEntity.setUserId(userId);
 		
-		transaction.setPrincipalProductId(product.getproductId());
+		transaction.setPrincipalProductId(productEntity.getproductId());
 		transaction.setTransactionDetails("Creacion producto");
 		transaction.setTransactionResult("Efectiva");
 		transaction.setFinalBalance(0);
 		transaction.setTransactionValue(0);
 		transaction.setTransactionType("Creacion cuenta");
 		transaction.setTransactionDate(transaction.getTransactionDate());
-		serviceTransaction.createTransaction(transaction, product.getproductId());
-		return serviceProduct.addProduct(product, userId);
+		serviceTransaction.createTransaction(transaction, productEntity.getproductId());
+		return serviceProduct.addProduct(productEntity, userId);
 	}
 	
 	//Obtener un producto de un usuario
 	@GetMapping("/{productId}")
-	public Product ListIdOneProduct(@PathVariable("productId") Long productId){
+	public ProductEntity ListIdOneProduct(@PathVariable("productId") Long productId){
 		return serviceProduct.listOneProductId(productId);
 	}
 	
 	//Cambiar el estado a activo o inactivo
 	@PutMapping("/{productId}/changeState")
-	public Product changeState(Product product, @PathVariable("productId") Long productId){
-		product = ListIdOneProduct(productId);
-		product.setproductId(productId);
-		product.setUserId(product.getUserId());
-		product.setTypeAccount(product.getTypeAccount());
-		product.setNumAccount(product.getNumAccount());
-		product.setCreationDate(product.getCreationDate());
-		product.setBalance(product.getBalance());
-		if (product.getState().equals("activa")) {
-			product.setState("inactiva");
-		} else if (product.getState().equals("inactiva")){
-			product.setState("activa");
-		} else if (product.getState().equals("Cancelado")){
-			product.setState("Cancelado");
+	public ProductEntity changeState(ProductEntity productEntity, @PathVariable("productId") Long productId){
+		productEntity = ListIdOneProduct(productId);
+		productEntity.setproductId(productId);
+		productEntity.setUserId(productEntity.getUserId());
+		productEntity.setTypeAccount(productEntity.getTypeAccount());
+		productEntity.setNumAccount(productEntity.getNumAccount());
+		productEntity.setCreationDate(productEntity.getCreationDate());
+		productEntity.setBalance(productEntity.getBalance());
+		if (productEntity.getState().equals("activa")) {
+			productEntity.setState("inactiva");
+		} else if (productEntity.getState().equals("inactiva")){
+			productEntity.setState("activa");
+		} else if (productEntity.getState().equals("Cancelado")){
+			productEntity.setState("Cancelado");
 		}
 		
-		return serviceProduct.changeState(product);
+		return serviceProduct.changeState(productEntity);
 	}
 	
 	//Cambiar el estado para cancelar el producto
 	@PutMapping("/{productId}/cancel")
-	public Product cancelProduct(Product product, @PathVariable("productId") Long productId){
-		product = ListIdOneProduct(productId);
-		product.setproductId(productId);
-		product.setUserId(product.getUserId());
-		product.setTypeAccount(product.getTypeAccount());
-		product.setNumAccount(product.getNumAccount());
-		product.setCreationDate(product.getCreationDate());
-		product.setBalance(product.getBalance());
-		if (product.getBalance() != 0) {
-			product.setState(product.getState());
+	public ProductEntity cancelProduct(ProductEntity productEntity, @PathVariable("productId") Long productId){
+		productEntity = ListIdOneProduct(productId);
+		productEntity.setproductId(productId);
+		productEntity.setUserId(productEntity.getUserId());
+		productEntity.setTypeAccount(productEntity.getTypeAccount());
+		productEntity.setNumAccount(productEntity.getNumAccount());
+		productEntity.setCreationDate(productEntity.getCreationDate());
+		productEntity.setBalance(productEntity.getBalance());
+		if (productEntity.getBalance() != 0) {
+			productEntity.setState(productEntity.getState());
 		} else{
-			product.setState("Cancelado");
+			productEntity.setState("Cancelado");
 		}
 		
-		return serviceProduct.changeState(product);
+		return serviceProduct.changeState(productEntity);
 	}
 	
 	//Actualizar el saldo de un producto
 	@PutMapping("/{productId}")
-	public Product updateBalance(Product product, @PathVariable("productId") Long productId, int finalBalance) {
-		product = ListIdOneProduct(productId);
-		product.setBalance(finalBalance);
-		return serviceProduct.updateBalance(product);
+	public ProductEntity updateBalance(ProductEntity productEntity, @PathVariable("productId") Long productId, int finalBalance) {
+		productEntity = ListIdOneProduct(productId);
+		productEntity.setBalance(finalBalance);
+		return serviceProduct.updateBalance(productEntity);
 	}
 	
 	//Depositar dinero a una cuenta
 	@PutMapping("/{productId}/{money}")
-	public Product addMovement(Product product, @PathVariable("productId") Long productId, @PathVariable("money") int money) {
-		product = ListIdOneProduct(productId);
-		product.setproductId(productId);
-		product.setUserId(product.getUserId());
-		product.setTypeAccount(product.getTypeAccount());
-		product.setNumAccount(product.getNumAccount());
-		product.setCreationDate(product.getCreationDate());
-		product.setState(product.getState());
+	public ProductEntity addMovement(ProductEntity productEntity, @PathVariable("productId") Long productId, @PathVariable("money") int money) {
+		productEntity = ListIdOneProduct(productId);
+		productEntity.setproductId(productId);
+		productEntity.setUserId(productEntity.getUserId());
+		productEntity.setTypeAccount(productEntity.getTypeAccount());
+		productEntity.setNumAccount(productEntity.getNumAccount());
+		productEntity.setCreationDate(productEntity.getCreationDate());
+		productEntity.setState(productEntity.getState());
 		
-		if (product.getBalance()>=0) {
-			product.setBalance(product.getBalance() + money);
+		if (productEntity.getBalance()>=0) {
+			productEntity.setBalance(productEntity.getBalance() + money);
 		}
-		return serviceProduct.changeState(product);
+		return serviceProduct.changeState(productEntity);
 	}
 	
 	//Retirar dinero de una cuenta
 	@PutMapping("/{productId}/{money}/retirar")
-	public Product withdrawMovement(Product product, @PathVariable("productId") Long productId, @PathVariable("money") int money) {
-		product = ListIdOneProduct(productId);
-		product.setproductId(productId);
-		product.setUserId(product.getUserId());
-		product.setTypeAccount(product.getTypeAccount());
-		product.setNumAccount(product.getNumAccount());
-		product.setCreationDate(product.getCreationDate());
-		product.setState(product.getState());
+	public ProductEntity withdrawMovement(ProductEntity productEntity, @PathVariable("productId") Long productId, @PathVariable("money") int money) {
+		productEntity = ListIdOneProduct(productId);
+		productEntity.setproductId(productId);
+		productEntity.setUserId(productEntity.getUserId());
+		productEntity.setTypeAccount(productEntity.getTypeAccount());
+		productEntity.setNumAccount(productEntity.getNumAccount());
+		productEntity.setCreationDate(productEntity.getCreationDate());
+		productEntity.setState(productEntity.getState());
 		
-		if (money > product.getBalance()) {
-			product.setBalance(0);
+		if (money > productEntity.getBalance()) {
+			productEntity.setBalance(0);
 		}else {
-			product.setBalance(product.getBalance() - money);
+			productEntity.setBalance(productEntity.getBalance() - money);
 		}
 		
-		return serviceProduct.changeState(product);
+		return serviceProduct.changeState(productEntity);
 	}
 	
 }

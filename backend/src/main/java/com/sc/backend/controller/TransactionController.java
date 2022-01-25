@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sc.backend.entity.Product;
+import com.sc.backend.entity.ProductEntity;
 import com.sc.backend.entity.Transaction;
 import com.sc.backend.interfaceService.InterfaceProductService;
 import com.sc.backend.interfaceService.InterfaceTransactionService;
@@ -32,32 +32,32 @@ public class TransactionController {
 	@PostMapping("")
 	@ResponseBody
 	public Transaction saveTransaction(@RequestBody Transaction transaction, @PathVariable("productId") Long productId) {
-		Product product = serviceProduct.listOneProductId(productId);
+		ProductEntity productEntity = serviceProduct.listOneProductId(productId);
 		transaction.setPrincipalProductId(productId);
 				
 		//Si el producto esta cancelado
-		if (product.getState().equals("Producto cancelado")) {
+		if (productEntity.getState().equals("Producto cancelado")) {
 			transaction.setTransactionResult("Producto cancelado");
 		}
 		
 		//Si el producto no esta cancelado
-		else if (transaction.getTransactionType().equals("Consignacion")) {
-			transaction.setFinalBalance(product.getBalance()+transaction.getTransactionValue());
+		else if (transaction.getTransactionType().equals("Consignación")) {
+			transaction.setFinalBalance(productEntity.getBalance()+transaction.getTransactionValue());
 			transaction.setTransactionResult("Efectiva");
 			transaction.setFinanceMovement("Credito");
 		}
 		
 		//Si la transaccion es un retiro y el producto esta activo
-		else if (transaction.getTransactionType().equals("Retiro") && product.getState().equals("activa")) {
+		else if (transaction.getTransactionType().equals("Retiro") && productEntity.getState().equals("activa")) {
 			//Si la cuenta es de ahorros y el saldo menos el costo de la transacion (incluyendo GMF 0.4% ~ 4x1000) es mayor a 0
-			if (product.getTypeAccount().equals("ahorros") && product.getBalance() - (1.004 * transaction.getTransactionValue()) >=0) {
+			if (productEntity.getTypeAccount().equals("ahorros") && productEntity.getBalance() - (1.004 * transaction.getTransactionValue()) >=0) {
 				
 				//Creacion de la transaccion con GMF incluido
 				
 				Transaction transactionGMF = new Transaction();
 				transactionGMF.setPrincipalProductId(productId);
 				transactionGMF.setTransactionValue(-0.004 * transaction.getTransactionValue());
-				transactionGMF.setFinalBalance(product.getBalance() - 0.004*transaction.getTransactionValue());
+				transactionGMF.setFinalBalance(productEntity.getBalance() - 0.004*transaction.getTransactionValue());
 				transactionGMF.setTransactionDetails("GMF 4 x 1000");
 				transactionGMF.setTransactionResult("Efectiva");
 				transactionGMF.setTransactionDate(transaction.getTransactionDate());
@@ -65,7 +65,7 @@ public class TransactionController {
 				transactionGMF.setFinanceMovement("Debito");
 				serviceTransaction.createTransaction(transactionGMF, productId);
 				//Actualizar la transaccion
-				transaction.setFinalBalance(product.getBalance()- (1.004 * transaction.getTransactionValue()));
+				transaction.setFinalBalance(productEntity.getBalance()- (1.004 * transaction.getTransactionValue()));
 				transaction.setTransactionValue(-transaction.getTransactionValue());
 				transaction.setSecondaryProductId((long) 0);
 				transaction.setTransactionResult("Efectiva");
@@ -74,14 +74,14 @@ public class TransactionController {
 				
 			}
 			//Si la cuenta es corriente y el saldo menos el costo de la transacion (incluyendo GMF 0.4% ~ 4x1000) es mayor a 2 millones
-			else if (product.getTypeAccount().equals("corriente") && product.getBalance() - (1.004 * transaction.getTransactionValue()) >= -2000000) {
+			else if (productEntity.getTypeAccount().equals("corriente") && productEntity.getBalance() - (1.004 * transaction.getTransactionValue()) >= -2000000) {
 				
 				//Creacion de la transaccion con GMF incluido
 				
 				Transaction transactionGMF = new Transaction();
 				transactionGMF.setPrincipalProductId(productId);
 				transactionGMF.setTransactionValue(-0.004 * transaction.getTransactionValue());
-				transactionGMF.setFinalBalance(product.getBalance() - 0.004*transaction.getTransactionValue());
+				transactionGMF.setFinalBalance(productEntity.getBalance() - 0.004*transaction.getTransactionValue());
 				transactionGMF.setTransactionDetails("GMF 4 x 1000");
 				transactionGMF.setTransactionResult("Efectiva");
 				transactionGMF.setTransactionDate(transaction.getTransactionDate());
@@ -90,33 +90,33 @@ public class TransactionController {
 				serviceTransaction.createTransaction(transactionGMF, productId);
 				
 				//Actualizar la transaccion
-				transaction.setFinalBalance(product.getBalance()- (1.004 * transaction.getTransactionValue()));
+				transaction.setFinalBalance(productEntity.getBalance()- (1.004 * transaction.getTransactionValue()));
 				transaction.setTransactionValue(-transaction.getTransactionValue());
-				transaction.setSecondaryProductId((long) 0);
+				transaction.setSecondaryProductId(0L);
 				transaction.setTransactionResult("Efectiva");
 				transaction.setFinanceMovement("Debito");
 				transaction.setGMF(-0.004 * transaction.getTransactionValue());
 			}
 			else {
-				transaction.setTransactionResult("Saldo insuficiente. El saldo disponible para hacer un retiro es: " + 0.996 * product.getBalance());
-				transaction.setFinalBalance(product.getBalance());
+				transaction.setTransactionResult("Saldo insuficiente. El saldo disponible para hacer un retiro es: " + 0.996 * productEntity.getBalance());
+				transaction.setFinalBalance(productEntity.getBalance());
 			}
 			
 		}
 		
 		//Si la transaccion es una transferencia y el producto esta activo
-		else if(transaction.getTransactionType().equals("Transferencia") && product.getState().equals("activa")) {
+		else if(transaction.getTransactionType().equals("Transferencia") && productEntity.getState().equals("activa")) {
 			//Receptor de la transferencia
-			Product productReceiver = serviceProduct.listOneProductId(transaction.getSecondaryProductId());
+			ProductEntity productReceiver = serviceProduct.listOneProductId(transaction.getSecondaryProductId());
 			//Si la cuenta es de ahorros y el saldo menos el costo de la transacion (incluyendo GMF 0.4% ~ 4x1000) es mayor a 0
-			if (product.getTypeAccount().equals("ahorros") && product.getBalance() - (1.004 * transaction.getTransactionValue()) >=0 ) {
+			if (productEntity.getTypeAccount().equals("ahorros") && productEntity.getBalance() - (1.004 * transaction.getTransactionValue()) >=0 ) {
 				transaction.setSecondaryProductId(transaction.getSecondaryProductId());
 				
 				//Creacion de la transaccion con GMF
 				Transaction transactionGMF = new Transaction();
 				transactionGMF.setPrincipalProductId(productId);
 				transactionGMF.setTransactionValue(-0.004 * transaction.getTransactionValue());
-				transactionGMF.setFinalBalance(product.getBalance() - 0.004*transaction.getTransactionValue());
+				transactionGMF.setFinalBalance(productEntity.getBalance() - 0.004*transaction.getTransactionValue());
 				transactionGMF.setTransactionDetails("GMF 4 x 1000");
 				transactionGMF.setTransactionResult("Efectiva");
 				transactionGMF.setTransactionDate(transaction.getTransactionDate());
@@ -125,7 +125,7 @@ public class TransactionController {
 				serviceTransaction.createTransaction(transactionGMF, productId);
 				
 				//Actualizacion de la transaccion
-				transaction.setFinalBalance(product.getBalance()- (1.004 * transaction.getTransactionValue()));
+				transaction.setFinalBalance(productEntity.getBalance()- (1.004 * transaction.getTransactionValue()));
 				transaction.setTransactionValue(-transaction.getTransactionValue());
 				transaction.setSecondaryProductId((long) 0);
 				transaction.setTransactionResult("Efectiva");
@@ -150,14 +150,14 @@ public class TransactionController {
 				serviceProduct.updateBalance(productReceiver);
 			}
 			//Si la cuenta es corriente y el saldo menos el costo de la transacion (incluyendo GMF 0.4% ~ 4x1000) es mayor a 2 millones
-			else if (product.getTypeAccount().equals("corriente") && product.getBalance() - (1.004 * transaction.getTransactionValue()) >= -2000000) {
+			else if (productEntity.getTypeAccount().equals("corriente") && productEntity.getBalance() - (1.004 * transaction.getTransactionValue()) >= -2000000) {
 				transaction.setSecondaryProductId(transaction.getSecondaryProductId());
 				
 				//Creacion de la transaccion con GMF
 				Transaction transactionGMF = new Transaction();
 				transactionGMF.setPrincipalProductId(productId);
 				transactionGMF.setTransactionValue(-0.004 * transaction.getTransactionValue());
-				transactionGMF.setFinalBalance(product.getBalance() - 0.004*transaction.getTransactionValue());
+				transactionGMF.setFinalBalance(productEntity.getBalance() - 0.004*transaction.getTransactionValue());
 				transactionGMF.setTransactionDetails("GMF 4 x 1000");
 				transactionGMF.setTransactionResult("Efectiva");
 				transactionGMF.setTransactionDate(transaction.getTransactionDate());
@@ -166,7 +166,7 @@ public class TransactionController {
 				serviceTransaction.createTransaction(transactionGMF, productId);
 				
 				//Actualizacion de la transaccion
-				transaction.setFinalBalance(product.getBalance()- (1.004 * transaction.getTransactionValue()));
+				transaction.setFinalBalance(productEntity.getBalance()- (1.004 * transaction.getTransactionValue()));
 				transaction.setTransactionValue(-transaction.getTransactionValue());
 				transaction.setSecondaryProductId((long) 0);
 				transaction.setTransactionResult("Efectiva");
@@ -192,25 +192,25 @@ public class TransactionController {
 				
 			}
 			else {
-				transaction.setTransactionResult("Saldo insuficiente. El saldo disponible para la transferencia es: " + 0.996*product.getBalance());
-				transaction.setFinalBalance(product.getBalance());
+				transaction.setTransactionResult("Saldo insuficiente. El saldo disponible para la transferencia es: " + 0.996*productEntity.getBalance());
+				transaction.setFinalBalance(productEntity.getBalance());
 			}
 		}
 		
 		else {
 			transaction.setTransactionResult("Cuenta inactiva");
-			transaction.setFinalBalance(product.getBalance());
+			transaction.setFinalBalance(productEntity.getBalance());
 		}
 		
-		product.setBalance(transaction.getFinalBalance());
-		serviceProduct.updateBalance(product);
+		productEntity.setBalance(transaction.getFinalBalance());
+		serviceProduct.updateBalance(productEntity);
 		
 		return serviceTransaction.createTransaction(transaction, productId);
 	}
 	
 	//Obtener la transaccion por cuenta, por usuario
 	@GetMapping("")
-	public List<Transaction> listIdTransaction(@PathVariable("productId") Long principalProductId){
+	public List<Transaction> listTransactionId(@PathVariable("productId") Long principalProductId){
 		return serviceTransaction.listTransactionId(principalProductId);
 	}
 	

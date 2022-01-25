@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sc.backend.entity.Product;
+import com.sc.backend.entity.ProductEntity;
 import com.sc.backend.interfaceService.InterfaceProductService;
 import com.sc.backend.interfaceService.InterfaceTransactionService;
 import com.sc.backend.repository.ProductRepository;
@@ -20,48 +20,48 @@ public class ProductService implements InterfaceProductService{
 	private ProductRepository productRepository;
 	
 	@Override
-	public List<Product> listProductId(Long userId){
+	public List<ProductEntity> listProductId(Long userId){
 		return productRepository.findByUserId(userId);
 	}
 	
 	@Override
-	public Product listOneProductId(Long productId) {
+	public ProductEntity listOneProductId(Long productId) {
 		return productRepository.findByProductId(productId);
 	}
 	
 	@Override
-	public Product addProduct(Product product, Long userId) {
-		return productRepository.save(product);
+	public ProductEntity addProduct(ProductEntity productEntity, Long userId) {
+		return productRepository.save(productEntity);
 	}
 	
 	@Override
-	public Product changeState(Product product) {
-		return productRepository.save(product);
+	public ProductEntity changeState(ProductEntity productEntity) {
+		return productRepository.save(productEntity);
 	}
 	
 	@Override
-	public Product updateBalance(Product product) {
-		return productRepository.save(product);
+	public ProductEntity updateBalance(ProductEntity productEntity) {
+		return productRepository.save(productEntity);
 	}
 	
 	@Override
-	public List<Product> listIdOtherAvailableProducts(Long userId, Long productId){
+	public List<ProductEntity> listIdOtherAvailableProducts(Long userId, Long productId){
 		return productRepository.findByStateNotAndUserIdNotAndProductIdNot("Cancelado", userId, productId);
 	}
 	
 	@Override
-	public Product cancelProduct(Product product) {
-		return productRepository.save(product);
+	public ProductEntity cancelProduct(ProductEntity productEntity) {
+		return productRepository.save(productEntity);
 	}
 	
 	@Override 
-	public Product addToBalance(Product product, int movement) {
-		return productRepository.save(product);
+	public ProductEntity addToBalance(ProductEntity productEntity, int movement) {
+		return productRepository.save(productEntity);
 	}
 	
 	@Override
-	public Product withdrawToBalance(Product product, int movement) {
-		return productRepository.save(product);
+	public ProductEntity withdrawToBalance(ProductEntity productEntity, int movement) {
+		return productRepository.save(productEntity);
 	}
 	
 	
