@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "transactions")
-public class Transaction {
+public class TransactionEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,13 +44,13 @@ public class Transaction {
 	//Movimiento financiero
 	private String financeMovement;
 	
-	public Transaction() {
+	public TransactionEntity() {
 		
 	}
 
 	//Constructor
 	
-	public Transaction(Long id, Long principalProductId, Long secondaryProductId, String transactionType,
+	public TransactionEntity(Long id, Long principalProductId, Long secondaryProductId, String transactionType,
 			double transactionValue, String transactionDate, String transactionDetails, String transactionResult,
 			double finalBalance, double GMF, String financeMovement) {
 		super();

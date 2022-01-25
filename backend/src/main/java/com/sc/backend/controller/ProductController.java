@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sc.backend.entity.ProductEntity;
-import com.sc.backend.entity.Transaction;
+import com.sc.backend.entity.TransactionEntity;
 import com.sc.backend.interfaceService.InterfaceProductService;
 import com.sc.backend.interfaceService.InterfaceTransactionService;
 
@@ -44,17 +44,17 @@ public class ProductController {
 	//Crear un nuevo producto para un cliente
 	@PostMapping("")
 	@ResponseBody
-	public ProductEntity save(@RequestBody ProductEntity productEntity, @PathVariable("userId") Long userId, Transaction transaction ) {
+	public ProductEntity save(@RequestBody ProductEntity productEntity, @PathVariable("userId") Long userId, TransactionEntity transactionEntity ) {
 		productEntity.setUserId(userId);
 		
-		transaction.setPrincipalProductId(productEntity.getproductId());
-		transaction.setTransactionDetails("Creacion producto");
-		transaction.setTransactionResult("Efectiva");
-		transaction.setFinalBalance(0);
-		transaction.setTransactionValue(0);
-		transaction.setTransactionType("Creacion cuenta");
-		transaction.setTransactionDate(transaction.getTransactionDate());
-		serviceTransaction.createTransaction(transaction, productEntity.getproductId());
+		transactionEntity.setPrincipalProductId(productEntity.getproductId());
+		transactionEntity.setTransactionDetails("Creacion producto");
+		transactionEntity.setTransactionResult("Efectiva");
+		transactionEntity.setFinalBalance(0);
+		transactionEntity.setTransactionValue(0);
+		transactionEntity.setTransactionType("Creacion cuenta");
+		transactionEntity.setTransactionDate(transactionEntity.getTransactionDate());
+		serviceTransaction.createTransaction(transactionEntity, productEntity.getproductId());
 		return serviceProduct.addProduct(productEntity, userId);
 	}
 	

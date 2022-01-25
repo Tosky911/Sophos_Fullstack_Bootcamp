@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.sc.backend.entity.Transaction;
+import com.sc.backend.entity.TransactionEntity;
 import com.sc.backend.interfaceService.InterfaceTransactionService;
 import com.sc.backend.repository.TransactionRepository;
 
@@ -15,12 +15,12 @@ public class TransactionService implements InterfaceTransactionService{
 	private TransactionRepository transactionRepository;
 	
 	@Override
-	public Transaction createTransaction(Transaction transaction, Long principalProductId) {
-		return transactionRepository.save(transaction);
+	public TransactionEntity createTransaction(TransactionEntity transactionEntity, Long principalProductId) {
+		return transactionRepository.save(transactionEntity);
 	}
 	
 	@Override
-	public List<Transaction> listTransactionId(Long principalProductId) {
+	public List<TransactionEntity> listTransactionId(Long principalProductId) {
 		return transactionRepository.findByPrincipalProductIdAndTransactionResult(principalProductId, "Efectiva");
 	}
 	
