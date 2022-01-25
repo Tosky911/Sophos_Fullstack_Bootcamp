@@ -11,7 +11,7 @@ import com.sc.backend.interfaceService.InterfaceUserService;
 import com.sc.backend.repository.CustomerRepository;
 
 @Service
-public class UserService implements InterfaceUserService{
+public class CostumerService implements InterfaceUserService{
 
 	@Autowired
 	private CustomerRepository customerRepository;
