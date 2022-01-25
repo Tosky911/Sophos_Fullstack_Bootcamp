@@ -11,7 +11,7 @@ import com.sc.backend.repository.CustomerRepository;
 import com.sc.backend.service.impl.CustomerServiceImpl;
 
 @Service
-public class CostumerService implements CustomerServiceImpl{
+public class CustomerService implements CustomerServiceImpl{
 
 	@Autowired
 	private CustomerRepository customerRepository;
