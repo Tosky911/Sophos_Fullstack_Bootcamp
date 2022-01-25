@@ -15,9 +15,9 @@ public class ProductEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long productId;
 	
-	//Valor con el que se asocia a la entidad User
-	@JoinColumn(name = "userId")
-	private Long userId;
+	//Valor con el que se asocia a la entidad Customer
+	@JoinColumn(name = "customerId")
+	private Long customerId;
 	
 	//Saldo de la cuenta
 	private double balance;
@@ -39,11 +39,11 @@ public class ProductEntity {
 	}
 
 	//Constructor
-	public ProductEntity(Long id, Long userId, double balance, String typeAccount, String numAccount, String creationDate,
+	public ProductEntity(Long id, Long customerId, double balance, String typeAccount, String numAccount, String creationDate,
 			String state) {
 		super();
 		this.productId = id;
-		this.userId = userId;
+		this.customerId = customerId;
 		this.balance = balance;
 		this.typeAccount = typeAccount;
 		this.numAccount = numAccount;
@@ -61,12 +61,12 @@ public class ProductEntity {
 		this.productId = id;
 	}
 
-	public Long getUserId() {
-		return userId;
+	public Long getCustomerId() {
+		return customerId;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setCustomerId(Long customerId) {
+		this.customerId = customerId;
 	}
 
 	public double getBalance() {
