@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sc.backend.entity.ProductEntity;
 import com.sc.backend.entity.CustomerEntity;
 import com.sc.backend.service.impl.ProductServiceImpl;
-import com.sc.backend.service.impl.InterfaceUserService;
+import com.sc.backend.service.impl.CustomerServiceImpl;
 
 @CrossOrigin(origins= "http://localhost:4200")
 @RestController
@@ -27,7 +27,7 @@ import com.sc.backend.service.impl.InterfaceUserService;
 public class CustomerController {
 
 	@Autowired
-	InterfaceUserService serviceUser;
+	CustomerServiceImpl serviceUser;
 	
 	@Autowired
 	ProductServiceImpl serviceProduct;

@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import com.sc.backend.entity.CustomerEntity;
 
-public interface InterfaceUserService {
+public interface CustomerServiceImpl {
 	public List<CustomerEntity> list();
 	public Optional<CustomerEntity> listOneUserId(Long id);
 	public CustomerEntity add(CustomerEntity customerEntity);
