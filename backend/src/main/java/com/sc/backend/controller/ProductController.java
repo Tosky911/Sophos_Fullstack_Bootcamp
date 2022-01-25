@@ -20,32 +20,32 @@ import com.sc.backend.service.impl.TransactionServiceImpl;
 
 @CrossOrigin(origins= "http://localhost:4200")
 @RestController
-@RequestMapping("/users/{userId}/products")
+@RequestMapping("/customers/{customerId}/products")
 public class ProductController {
 	
 	@Autowired
-	ProductServiceImpl serviceProduct;
+	ProductServiceImpl productServiceImpl;
 	
 	@Autowired
-	TransactionServiceImpl serviceTransaction;
+	TransactionServiceImpl transactionServiceImpl;
 	
 	//Alistar los productos del usuario
 	@GetMapping("")
-	public List<ProductEntity> listIdProduct(@PathVariable("userId") Long userId){
-		return serviceProduct.listProductId(userId);
+	public List<ProductEntity> listIdProduct(@PathVariable("customerId") Long customerId){
+		return productServiceImpl.listProductId(customerId);
 	}
 	
 	//Lista de los productos diferentes al seleccionado
 	@GetMapping("/{productId}/different")
-	public List<ProductEntity> listIdOtherAvailableProducts(@PathVariable("userId") Long userId, @PathVariable("productId") Long productId){
-		return serviceProduct.listIdOtherAvailableProducts(userId,productId);
+	public List<ProductEntity> listIdOtherAvailableProducts(@PathVariable("customerId") Long customerId, @PathVariable("productId") Long productId){
+		return productServiceImpl.listIdOtherAvailableProducts(customerId,productId);
 	}
 	
 	//Crear un nuevo producto para un cliente
 	@PostMapping("")
 	@ResponseBody
-	public ProductEntity save(@RequestBody ProductEntity productEntity, @PathVariable("userId") Long userId, TransactionEntity transactionEntity ) {
-		productEntity.setUserId(userId);
+	public ProductEntity save(@RequestBody ProductEntity productEntity, @PathVariable("customerId") Long customerId, TransactionEntity transactionEntity ) {
+		productEntity.setCustomerId(customerId);
 		
 		transactionEntity.setPrincipalProductId(productEntity.getproductId());
 		transactionEntity.setTransactionDetails("Creacion producto");
@@ -54,14 +54,14 @@ public class ProductController {
 		transactionEntity.setTransactionValue(0);
 		transactionEntity.setTransactionType("Creacion cuenta");
 		transactionEntity.setTransactionDate(transactionEntity.getTransactionDate());
-		serviceTransaction.createTransaction(transactionEntity, productEntity.getproductId());
-		return serviceProduct.addProduct(productEntity, userId);
+		transactionServiceImpl.createTransaction(transactionEntity, productEntity.getproductId());
+		return productServiceImpl.addProduct(productEntity, customerId);
 	}
 	
-	//Obtener un producto de un usuario
+	//Obtener un producto de un cliente
 	@GetMapping("/{productId}")
 	public ProductEntity ListIdOneProduct(@PathVariable("productId") Long productId){
-		return serviceProduct.listOneProductId(productId);
+		return productServiceImpl.listOneProductId(productId);
 	}
 	
 	//Cambiar el estado a activo o inactivo
@@ -69,7 +69,7 @@ public class ProductController {
 	public ProductEntity changeState(ProductEntity productEntity, @PathVariable("productId") Long productId){
 		productEntity = ListIdOneProduct(productId);
 		productEntity.setproductId(productId);
-		productEntity.setUserId(productEntity.getUserId());
+		productEntity.setCustomerId(productEntity.getCustomerId());
 		productEntity.setTypeAccount(productEntity.getTypeAccount());
 		productEntity.setNumAccount(productEntity.getNumAccount());
 		productEntity.setCreationDate(productEntity.getCreationDate());
@@ -82,7 +82,7 @@ public class ProductController {
 			productEntity.setState("Cancelado");
 		}
 		
-		return serviceProduct.changeState(productEntity);
+		return productServiceImpl.changeState(productEntity);
 	}
 	
 	//Cambiar el estado para cancelar el producto
@@ -90,7 +90,7 @@ public class ProductController {
 	public ProductEntity cancelProduct(ProductEntity productEntity, @PathVariable("productId") Long productId){
 		productEntity = ListIdOneProduct(productId);
 		productEntity.setproductId(productId);
-		productEntity.setUserId(productEntity.getUserId());
+		productEntity.setCustomerId(productEntity.getCustomerId());
 		productEntity.setTypeAccount(productEntity.getTypeAccount());
 		productEntity.setNumAccount(productEntity.getNumAccount());
 		productEntity.setCreationDate(productEntity.getCreationDate());
@@ -101,7 +101,7 @@ public class ProductController {
 			productEntity.setState("Cancelado");
 		}
 		
-		return serviceProduct.changeState(productEntity);
+		return productServiceImpl.changeState(productEntity);
 	}
 	
 	//Actualizar el saldo de un producto
@@ -109,7 +109,7 @@ public class ProductController {
 	public ProductEntity updateBalance(ProductEntity productEntity, @PathVariable("productId") Long productId, int finalBalance) {
 		productEntity = ListIdOneProduct(productId);
 		productEntity.setBalance(finalBalance);
-		return serviceProduct.updateBalance(productEntity);
+		return productServiceImpl.updateBalance(productEntity);
 	}
 	
 	//Depositar dinero a una cuenta
@@ -117,7 +117,7 @@ public class ProductController {
 	public ProductEntity addMovement(ProductEntity productEntity, @PathVariable("productId") Long productId, @PathVariable("money") int money) {
 		productEntity = ListIdOneProduct(productId);
 		productEntity.setproductId(productId);
-		productEntity.setUserId(productEntity.getUserId());
+		productEntity.setCustomerId(productEntity.getCustomerId());
 		productEntity.setTypeAccount(productEntity.getTypeAccount());
 		productEntity.setNumAccount(productEntity.getNumAccount());
 		productEntity.setCreationDate(productEntity.getCreationDate());
@@ -126,7 +126,7 @@ public class ProductController {
 		if (productEntity.getBalance()>=0) {
 			productEntity.setBalance(productEntity.getBalance() + money);
 		}
-		return serviceProduct.changeState(productEntity);
+		return productServiceImpl.changeState(productEntity);
 	}
 	
 	//Retirar dinero de una cuenta
@@ -134,7 +134,7 @@ public class ProductController {
 	public ProductEntity withdrawMovement(ProductEntity productEntity, @PathVariable("productId") Long productId, @PathVariable("money") int money) {
 		productEntity = ListIdOneProduct(productId);
 		productEntity.setproductId(productId);
-		productEntity.setUserId(productEntity.getUserId());
+		productEntity.setCustomerId(productEntity.getCustomerId());
 		productEntity.setTypeAccount(productEntity.getTypeAccount());
 		productEntity.setNumAccount(productEntity.getNumAccount());
 		productEntity.setCreationDate(productEntity.getCreationDate());
@@ -146,7 +146,7 @@ public class ProductController {
 			productEntity.setBalance(productEntity.getBalance() - money);
 		}
 		
-		return serviceProduct.changeState(productEntity);
+		return productServiceImpl.changeState(productEntity);
 	}
 	
 }
