@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sc.backend.entity.ProductEntity;
-import com.sc.backend.entity.User;
+import com.sc.backend.entity.UserEntity;
 import com.sc.backend.interfaceService.InterfaceProductService;
 import com.sc.backend.interfaceService.InterfaceUserService;
 
@@ -34,28 +34,28 @@ public class UserController {
 	
 	//Alistar a todos los usuarios
 	@GetMapping("")
-	public List<User> list(){
+	public List<UserEntity> list(){
 		return serviceUser.list();
 	}
 	
 	//Crear un nuevo usuario
 	@PostMapping("")
 	@ResponseBody
-	public User save(@RequestBody User user) {
-		return serviceUser.add(user);
+	public UserEntity save(@RequestBody UserEntity userEntity) {
+		return serviceUser.add(userEntity);
 	}
 	
 	//Alistar un usuario por su Id
 	@GetMapping("/{id}")
-	public Optional<User> listOneUserId(@PathVariable("id") Long id) {
+	public Optional<UserEntity> listOneUserId(@PathVariable("id") Long id) {
 		return serviceUser.listOneUserId(id);
 	}
 	
 	//Editar la info de un usuario por su Id
 	@PutMapping("/{id}")
-	public User edit(@RequestBody User user, @PathVariable("id") Long id) {
-		user.setId(id);
-		return serviceUser.edit(user);
+	public UserEntity edit(@RequestBody UserEntity userEntity, @PathVariable("id") Long id) {
+		userEntity.setId(id);
+		return serviceUser.edit(userEntity);
 	}
 	
 	//Eliminar la info de un usuario por su Id
