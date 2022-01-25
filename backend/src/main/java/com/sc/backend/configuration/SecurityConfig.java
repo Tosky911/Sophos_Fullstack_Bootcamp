@@ -18,7 +18,7 @@ import com.sc.backend.service.impl.CustomerServiceImpl;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
-	private CustomerServiceImpl customerServiceImpl;
+	private UserServiceImpl userServiceImpl;
 	
 	@Autowired
 	private BCryptPasswordEncoder bcrypt;
@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.customerServiceImpl(customerServiceImpl).passwordEncoder(bcrypt);
+		auth.customerServiceImpl(userServiceImpl).passwordEncoder(bcrypt);
 	}
 	
 	@Override
