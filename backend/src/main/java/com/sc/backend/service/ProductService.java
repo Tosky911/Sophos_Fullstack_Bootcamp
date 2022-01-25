@@ -14,7 +14,7 @@ import com.sc.backend.service.impl.TransactionServiceImpl;
 public class ProductService implements ProductServiceImpl{
 	
 	@Autowired
-	TransactionServiceImpl transactionService;
+	TransactionServiceImpl transactionServiceImpl;
 	
 	@Autowired
 	private ProductRepository productRepository;
