@@ -23,7 +23,7 @@ import com.sc.backend.service.impl.CustomerServiceImpl;
 
 @CrossOrigin(origins= "http://localhost:4200")
 @RestController
-@RequestMapping("/CUSTOMERS")
+@RequestMapping("/customers")
 public class CustomerController {
 
 	@Autowired
