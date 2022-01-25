@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sc.backend.entity.ProductEntity;
 import com.sc.backend.entity.CustomerEntity;
-import com.sc.backend.service.impl.InterfaceProductService;
+import com.sc.backend.service.impl.ProductServiceImpl;
 import com.sc.backend.service.impl.InterfaceUserService;
 
 @CrossOrigin(origins= "http://localhost:4200")
@@ -30,7 +30,7 @@ public class CustomerController {
 	InterfaceUserService serviceUser;
 	
 	@Autowired
-	InterfaceProductService serviceProduct;
+	ProductServiceImpl serviceProduct;
 	
 	//Alistar a todos los usuarios
 	@GetMapping("")

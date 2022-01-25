@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.sc.backend.entity.ProductEntity;
 
-public interface InterfaceProductService {
+public interface ProductServiceImpl {
 	public List<ProductEntity> listProductId(Long userId);
 	public ProductEntity listOneProductId(Long productId);
 	public ProductEntity addProduct(ProductEntity productEntity, Long userId);
