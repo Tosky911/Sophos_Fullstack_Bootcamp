@@ -11,34 +11,12 @@ import com.sc.backend.repository.CustomerRepository;
 import com.sc.backend.service.impl.CustomerServiceImpl;
 
 @Service
-public class CustomerService implements CustomerServiceImpl{
-
-	@Autowired
-	private CustomerRepository customerRepository;
+public interface CustomerService{
 	
-	@Override
-	public List<CustomerEntity> list(){
-		return (List<CustomerEntity>) customerRepository.findAll();
-	}	
-	
-	@Override
-	public Optional<CustomerEntity> listOneUserId(Long id) {
-		return customerRepository.findById(id);
-	}
-	
-	@Override
-	public CustomerEntity add(CustomerEntity customerEntity) {
-		return customerRepository.save(customerEntity);
-	}
-	
-	@Override
-	public CustomerEntity edit(CustomerEntity customerEntity) {
-		return customerRepository.save(customerEntity);
-	}
-	
-	@Override
-	public void delete(Long id) {
-		customerRepository.deleteById(id);
-	}
-	
+	public List<CustomerEntity> list();
+	public Optional<CustomerEntity> listOneUserId(Long id);
+	public CustomerEntity add(CustomerEntity customerEntity);
+	public CustomerEntity edit(CustomerEntity customerEntity);
+	public void delete(Long id);
+		
 }
