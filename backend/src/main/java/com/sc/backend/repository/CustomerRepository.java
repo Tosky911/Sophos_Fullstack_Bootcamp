@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.sc.backend.entity.CustomerEntity;
 
 @Repository
-public interface UserRepository extends JpaRepository<CustomerEntity, Long>{
+public interface CustomerRepository extends JpaRepository<CustomerEntity, Long>{
 
 	Optional<CustomerEntity> findById(Long id);
 }

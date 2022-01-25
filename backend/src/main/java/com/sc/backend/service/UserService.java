@@ -8,37 +8,37 @@ import org.springframework.stereotype.Service;
 
 import com.sc.backend.entity.CustomerEntity;
 import com.sc.backend.interfaceService.InterfaceUserService;
-import com.sc.backend.repository.UserRepository;
+import com.sc.backend.repository.CustomerRepository;
 
 @Service
 public class UserService implements InterfaceUserService{
 
 	@Autowired
-	private UserRepository userRepository;
+	private CustomerRepository customerRepository;
 	
 	@Override
 	public List<CustomerEntity> list(){
-		return (List<CustomerEntity>) userRepository.findAll();
+		return (List<CustomerEntity>) customerRepository.findAll();
 	}	
 	
 	@Override
 	public Optional<CustomerEntity> listOneUserId(Long id) {
-		return userRepository.findById(id);
+		return customerRepository.findById(id);
 	}
 	
 	@Override
 	public CustomerEntity add(CustomerEntity customerEntity) {
-		return userRepository.save(customerEntity);
+		return customerRepository.save(customerEntity);
 	}
 	
 	@Override
 	public CustomerEntity edit(CustomerEntity customerEntity) {
-		return userRepository.save(customerEntity);
+		return customerRepository.save(customerEntity);
 	}
 	
 	@Override
 	public void delete(Long id) {
-		userRepository.deleteById(id);
+		customerRepository.deleteById(id);
 	}
 	
 }
