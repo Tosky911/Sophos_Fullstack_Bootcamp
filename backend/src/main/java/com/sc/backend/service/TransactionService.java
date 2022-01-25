@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.sc.backend.entity.TransactionEntity;
 import com.sc.backend.repository.TransactionRepository;
-import com.sc.backend.service.impl.InterfaceTransactionService;
+import com.sc.backend.service.impl.TransactionServiceImpl;
 
 @Service
-public class TransactionService implements InterfaceTransactionService{
+public class TransactionService implements TransactionServiceImpl{
 
 	@Autowired
 	private TransactionRepository transactionRepository;

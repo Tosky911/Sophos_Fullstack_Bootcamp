@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sc.backend.entity.ProductEntity;
 import com.sc.backend.entity.TransactionEntity;
 import com.sc.backend.service.impl.ProductServiceImpl;
-import com.sc.backend.service.impl.InterfaceTransactionService;
+import com.sc.backend.service.impl.TransactionServiceImpl;
 
 @CrossOrigin(origins= "http://localhost:4200")
 @RestController
@@ -27,7 +27,7 @@ public class ProductController {
 	ProductServiceImpl serviceProduct;
 	
 	@Autowired
-	InterfaceTransactionService serviceTransaction;
+	TransactionServiceImpl serviceTransaction;
 	
 	//Alistar los productos del usuario
 	@GetMapping("")

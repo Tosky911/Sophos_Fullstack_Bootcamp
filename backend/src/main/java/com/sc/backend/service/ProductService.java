@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 import com.sc.backend.entity.ProductEntity;
 import com.sc.backend.repository.ProductRepository;
 import com.sc.backend.service.impl.ProductServiceImpl;
-import com.sc.backend.service.impl.InterfaceTransactionService;
+import com.sc.backend.service.impl.TransactionServiceImpl;
 
 @Service
 public class ProductService implements ProductServiceImpl{
 	
 	@Autowired
-	InterfaceTransactionService transactionService;
+	TransactionServiceImpl transactionService;
 	
 	@Autowired
 	private ProductRepository productRepository;
