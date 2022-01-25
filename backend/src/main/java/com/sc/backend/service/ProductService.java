@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sc.backend.entity.ProductEntity;
-import com.sc.backend.interfaceService.InterfaceProductService;
-import com.sc.backend.interfaceService.InterfaceTransactionService;
 import com.sc.backend.repository.ProductRepository;
+import com.sc.backend.service.impl.InterfaceProductService;
+import com.sc.backend.service.impl.InterfaceTransactionService;
 
 @Service
 public class ProductService implements InterfaceProductService{

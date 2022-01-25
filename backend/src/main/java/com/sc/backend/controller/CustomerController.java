@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sc.backend.entity.ProductEntity;
 import com.sc.backend.entity.CustomerEntity;
-import com.sc.backend.interfaceService.InterfaceProductService;
-import com.sc.backend.interfaceService.InterfaceUserService;
+import com.sc.backend.service.impl.InterfaceProductService;
+import com.sc.backend.service.impl.InterfaceUserService;
 
 @CrossOrigin(origins= "http://localhost:4200")
 @RestController

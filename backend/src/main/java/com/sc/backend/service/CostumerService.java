@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sc.backend.entity.CustomerEntity;
-import com.sc.backend.interfaceService.InterfaceUserService;
 import com.sc.backend.repository.CustomerRepository;
+import com.sc.backend.service.impl.InterfaceUserService;
 
 @Service
 public class CostumerService implements InterfaceUserService{
