@@ -23,45 +23,45 @@ import com.sc.backend.service.impl.CustomerServiceImpl;
 
 @CrossOrigin(origins= "http://localhost:4200")
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/CUSTOMERS")
 public class CustomerController {
 
 	@Autowired
-	CustomerServiceImpl serviceUser;
+	CustomerServiceImpl customerServiceImpl;
 	
 	@Autowired
-	ProductServiceImpl serviceProduct;
+	ProductServiceImpl productServiceImpl;
 	
 	//Alistar a todos los usuarios
 	@GetMapping("")
 	public List<CustomerEntity> list(){
-		return serviceUser.list();
+		return customerServiceImpl.list();
 	}
 	
 	//Crear un nuevo usuario
 	@PostMapping("")
 	@ResponseBody
 	public CustomerEntity save(@RequestBody CustomerEntity customerEntity) {
-		return serviceUser.add(customerEntity);
+		return customerServiceImpl.add(customerEntity);
 	}
 	
 	//Alistar un usuario por su Id
 	@GetMapping("/{id}")
 	public Optional<CustomerEntity> listOneUserId(@PathVariable("id") Long id) {
-		return serviceUser.listOneUserId(id);
+		return customerServiceImpl.listOneUserId(id);
 	}
 	
 	//Editar la info de un usuario por su Id
 	@PutMapping("/{id}")
 	public CustomerEntity edit(@RequestBody CustomerEntity customerEntity, @PathVariable("id") Long id) {
 		customerEntity.setId(id);
-		return serviceUser.edit(customerEntity);
+		return customerServiceImpl.edit(customerEntity);
 	}
 	
 	//Eliminar la info de un usuario por su Id
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable("id") Long id) {
-		List<ProductEntity> productEntity = serviceProduct.listProductId(id);
+		List<ProductEntity> productEntity = productServiceImpl.listProductId(id);
 		int state_count = 0;
 		for (ProductEntity model: productEntity) {
 			if (model.getState().equals("activa") || model.getState().equals("inactiva")) {
@@ -73,7 +73,7 @@ public class CustomerController {
 			System.out.println("Productos activos o inactivos");
 		} else {
 			System.out.println("Todos los productos cancelados");
-			serviceUser.delete(id);
+			customerServiceImpl.delete(id);
 		}
 	}
 	
