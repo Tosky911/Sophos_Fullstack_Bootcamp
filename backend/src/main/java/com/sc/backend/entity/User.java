@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
-public class UserEntity {
+public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,10 +31,10 @@ public class UserEntity {
 	//Fecha creacion cuenta
 	private String creationDate;
 	
-	public UserEntity () {}
+	public User () {}
 
 	//Constructor
-	public UserEntity(Long id, String typeId, String numId, String username, String firsName, String lastName, String email,
+	public User(Long id, String typeId, String numId, String username, String firsName, String lastName, String email,
 			String birthdayDate, String creationDate) {
 		super();
 		this.id = id;

@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sc.backend.entity.UserEntity;
+import com.sc.backend.entity.User;
 import com.sc.backend.interfaceService.InterfaceUserService;
 import com.sc.backend.repository.UserRepository;
 
@@ -17,23 +17,23 @@ public class UserService implements InterfaceUserService{
 	private UserRepository userRepository;
 	
 	@Override
-	public List<UserEntity> list(){
-		return (List<UserEntity>) userRepository.findAll();
+	public List<User> list(){
+		return (List<User>) userRepository.findAll();
 	}	
 	
 	@Override
-	public Optional<UserEntity> listOneUserId(Long id) {
+	public Optional<User> listOneUserId(Long id) {
 		return userRepository.findById(id);
 	}
 	
 	@Override
-	public UserEntity add(UserEntity userEntity) {
-		return userRepository.save(userEntity);
+	public User add(User user) {
+		return userRepository.save(user);
 	}
 	
 	@Override
-	public UserEntity edit(UserEntity userEntity) {
-		return userRepository.save(userEntity);
+	public User edit(User user) {
+		return userRepository.save(user);
 	}
 	
 	@Override
