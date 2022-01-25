@@ -12,7 +12,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.sc.backend.service.impl.CustomerServiceImpl;
+import com.sc.backend.service.impl.UserServiceImpl;
 
 @Configuration
 @EnableWebSecurity

@@ -13,9 +13,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import com.sc.backend.util.JwtUtils;
 
 @Component
-public class JwtFilters {
+public class JwtFilters extends OncePerRequestFilter {
 	
 	@Autowired
 	private JwtUtils jwtUtils;
