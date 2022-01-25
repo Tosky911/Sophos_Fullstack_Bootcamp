@@ -1,5 +1,6 @@
 package com.sc.backend.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "users")
+@Table(name = "CUSTOMERS")
 public class CustomerEntity {
 
 	@Id
@@ -17,9 +18,8 @@ public class CustomerEntity {
 	//Tipo documento
 	private String typeId;
 	//Numero documento
+	@Column(unique = true)
 	private String numId;
-	//Nombre de usuario
-	private String username;
 	//Nombres
 	private String firstName;
 	//Apellidos
@@ -34,13 +34,12 @@ public class CustomerEntity {
 	public CustomerEntity () {}
 
 	//Constructor
-	public CustomerEntity(Long id, String typeId, String numId, String username, String firsName, String lastName, String email,
+	public CustomerEntity(Long id, String typeId, String numId, String firsName, String lastName, String email,
 			String birthdayDate, String creationDate) {
 		super();
 		this.id = id;
 		this.typeId = typeId;
 		this.numId = numId;
-		this.username = username;
 		this.firstName = firsName;
 		this.lastName = lastName;
 		this.email = email;
@@ -72,14 +71,6 @@ public class CustomerEntity {
 
 	public void setNumId(String numId) {
 		this.numId = numId;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
 	}
 
 	public String getFirsName() {
