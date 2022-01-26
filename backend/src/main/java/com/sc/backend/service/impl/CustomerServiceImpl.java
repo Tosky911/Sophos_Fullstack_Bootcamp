@@ -17,27 +17,27 @@ public class CustomerServiceImpl implements CustomerService {
 	private CustomerRepository customerRepository;
 	
 	@Override
-	public List<CustomerEntity> list(){
+	public List<CustomerEntity> list() throws Exception{
 		return (List<CustomerEntity>) customerRepository.findAll();
 	}	
 	
 	@Override
-	public Optional<CustomerEntity> listOneUserId(Long id) {
+	public Optional<CustomerEntity> listOneCustomerId(Long id) throws Exception {
 		return customerRepository.findById(id);
 	}
 	
 	@Override
-	public CustomerEntity add(CustomerEntity customerEntity) {
+	public CustomerEntity add(CustomerEntity customerEntity) throws Exception {
 		return customerRepository.save(customerEntity);
 	}
 	
 	@Override
-	public CustomerEntity edit(CustomerEntity customerEntity) {
+	public CustomerEntity edit(CustomerEntity customerEntity) throws Exception {
 		return customerRepository.save(customerEntity);
 	}
 	
 	@Override
-	public void delete(Long id) {
+	public void delete(Long id) throws Exception {
 		customerRepository.deleteById(id);
 	}
 }

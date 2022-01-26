@@ -91,7 +91,7 @@ public class UserController {
 	 * @return @List<UserVO>
 	 */
 
-	@GetMapping
+	@GetMapping("")
 	public ResponseEntity<GeneralResponse<List<UserEntity>>> get() {
 		
 		GeneralResponse<List<UserEntity>> response = new GeneralResponse<>();

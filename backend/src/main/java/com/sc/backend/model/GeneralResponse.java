@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class GeneralResponse<T> implements Serializable{
 
-	private static final long serialVersionUID = 123456789L;
+	private static final long serialVersionUID = 2975454650689834772L;
 	
 	private T data;
 	private boolean success;
