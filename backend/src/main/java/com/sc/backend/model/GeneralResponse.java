@@ -6,6 +6,8 @@ public class GeneralResponse<T> implements Serializable{
 
 	private static final long serialVersionUID = 2975454650689834772L;
 	
+	private int codeError;
+	private String messageResult;
 	private T data;
 	private boolean success;
 	private String message;
@@ -32,5 +34,21 @@ public class GeneralResponse<T> implements Serializable{
 	
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	public int getCodeError() {
+		return codeError;
+	}
+
+	public void setCodeError(int codeError) {
+		this.codeError = codeError;
+	}
+
+	public String getMessageResult() {
+		return messageResult;
+	}
+
+	public void setMessageResult(String messageResult) {
+		this.messageResult = messageResult;
 	}
 }
