@@ -1,14 +1,15 @@
 package com.sc.backend.service.impl;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+//import org.springframework.security.core.userdetails.User;
+//import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.core.userdetails.UserDetailsService;
+//import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.sc.backend.entity.UserEntity;
@@ -16,7 +17,7 @@ import com.sc.backend.repository.UserRepository;
 import com.sc.backend.service.UserService;
 
 @Service
-public class UserServiceImpl implements UserService, UserDetailsService{
+public class UserServiceImpl implements UserService /*, UserDetailsService*/{
 	@Autowired
 	UserRepository userRepository;
 
@@ -40,10 +41,15 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-		UserEntity userVO = userRepository.findByUserName(userName);
-		UserDetails userDetails = new User(userVO.getUserName(), userVO.getPassword(), new ArrayList<>());
-		
-		return userDetails;
+	public Optional<UserEntity> findByUserName(String userName) throws Exception {
+		return userRepository.findByUserName(userName);
 	}
+
+//	@Override
+//	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+//		UserEntity userVO = userRepository.findByUserName(userName);
+//		UserDetails userDetails = new User(userVO.getUserName(), userVO.getPassword(), new ArrayList<>());
+//		
+//		return userDetails;
+//	}
 }
