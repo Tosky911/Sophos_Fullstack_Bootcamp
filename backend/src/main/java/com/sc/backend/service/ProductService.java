@@ -2,8 +2,6 @@ package com.sc.backend.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import com.sc.backend.entity.ProductEntity;
 
 public interface ProductService{
