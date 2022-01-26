@@ -19,8 +19,8 @@ public class ProductServiceImpl implements ProductService{
 	private ProductRepository productRepository;
 	
 	@Override
-	public List<ProductEntity> listProductId(Long userId){
-		return productRepository.findByUserId(userId);
+	public List<ProductEntity> listProductId(Long customerId){
+		return productRepository.findByCustomerId(customerId);
 	}
 	
 	@Override
@@ -29,7 +29,7 @@ public class ProductServiceImpl implements ProductService{
 	}
 	
 	@Override
-	public ProductEntity addProduct(ProductEntity productEntity, Long userId) {
+	public ProductEntity addProduct(ProductEntity productEntity, Long customerId) {
 		return productRepository.save(productEntity);
 	}
 	
@@ -44,8 +44,8 @@ public class ProductServiceImpl implements ProductService{
 	}
 	
 	@Override
-	public List<ProductEntity> listIdOtherAvailableProducts(Long userId, Long productId){
-		return productRepository.findByStateNotAndUserIdNotAndProductIdNot("Cancelado", userId, productId);
+	public List<ProductEntity> listIdOtherAvailableProducts(Long customerId, Long productId){
+		return productRepository.findByStateNotAndUserIdNotAndProductIdNot("Cancelado", customerId, productId);
 	}
 	
 	@Override
