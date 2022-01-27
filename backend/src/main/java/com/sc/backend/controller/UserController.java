@@ -269,7 +269,7 @@ public class UserController {
 				response.setMessageResult("User " + userName +" was deleted.");
 			}
 			
-			response.setMessage("Removal Successful");
+			response.setMessage("Successful Removal");
 			response.setSuccess(true);
 			response.setData(userName);
 			status = HttpStatus.OK;

@@ -21,8 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sc.backend.entity.ProductEntity;
 import com.sc.backend.model.GeneralResponse;
 import com.sc.backend.entity.CustomerEntity;
-import com.sc.backend.service.impl.ProductServiceImpl;
-import com.sc.backend.service.impl.CustomerServiceImpl;
+import com.sc.backend.service.CustomerService;
+import com.sc.backend.service.ProductService;
+
 
 @CrossOrigin(origins= "http://localhost:4200")
 @RestController
@@ -30,12 +31,12 @@ import com.sc.backend.service.impl.CustomerServiceImpl;
 public class CustomerController {
 
 	@Autowired
-	CustomerServiceImpl customerServiceImpl;
+	CustomerService customerService;
 	
 	@Autowired
-	ProductServiceImpl productServiceImpl;
+	ProductService productService;
 	
-	//Alistar a todos los usuarios
+	//Listar a todos los clientes
 	@GetMapping("")
 	public ResponseEntity<GeneralResponse<List<CustomerEntity>>> list(){
 		
@@ -45,27 +46,64 @@ public class CustomerController {
 		
 		try {
 			
-			data = customerServiceImpl.list();
-			String msg = "It found " + data.size() + " users.";
+			data = customerService.list();
 			
-			response.setMessage(msg);
+			if(data == null || data.size() == 0) {
+				response.setMessageResult( "0 customers were found.");
+				response.setCodeError(1);
+				response.setData(null);
+			}else {
+				response.setMessageResult(data.size()+ " customers were found.");
+				response.setCodeError(0);
+			}
+			
+			response.setMessage("Successful Query");
 			response.setSuccess(true);
 			response.setData(data);
 			status = HttpStatus.OK;
 			
 		} catch (Exception e) {
 			
-			String msg = "Something has failed. Please contact suuport.";
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
-			response.setMessage(msg);
+			response.setMessage("Something has failed. Error: "+ e.getLocalizedMessage()  +". Please contact support.");
 			response.setSuccess(false);
 		}
 		
 		return new ResponseEntity<>(response, status);
 	}
 	
-	//Crear un nuevo usuario
-	@PostMapping("")
+	//Listar un cliente por su Id
+	@GetMapping("/{id}")
+	public ResponseEntity<GeneralResponse<CustomerEntity>> listOneCustomerId(@PathVariable("id") Long id) {
+		
+		GeneralResponse<CustomerEntity> response = new GeneralResponse<>();
+		HttpStatus status = null;
+		Optional<CustomerEntity> customer; 
+		
+		try {
+			customer = customerService.listOneCustomerId(id);
+			if (customer == null || customer.get() == null) {
+				response.setMessageResult( "Customer wasn't found.");
+				response.setCodeError(1);
+				response.setData(null);
+			}else {
+				response.setMessageResult("Customer " + customer.get().getId() +" was found.");
+				response.setCodeError(0);
+			}
+			response.setMessage("Successful Query");
+			response.setSuccess(true);
+			response.setData(customer.get());
+			status = HttpStatus.OK;
+		} catch (Exception e) {
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+			response.setMessage("Something has failed. Error: "+ e.getLocalizedMessage()  +". Please contact support.");
+			response.setSuccess(false);
+		}
+		return new ResponseEntity<>(response, status);
+	}
+	
+	//Crear un nuevo cliente
+	@PostMapping
 	@ResponseBody
 	public  ResponseEntity<GeneralResponse<CustomerEntity>> save(@RequestBody CustomerEntity customerEntity) {
 		
@@ -75,14 +113,22 @@ public class CustomerController {
 		
 		try {
 			
-			data = customerServiceImpl.add(customerEntity);
-			String msg = "It saved customer " + data.getId() + ".";
+			data = customerService.add(customerEntity);
 			
-			response.setMessage(msg);
-			response.setSuccess(true);
-			response.setData(data);
-			status = HttpStatus.OK;
+			if(data == null) {
+				response.setMessageResult( "Customer wasn't saved.");
+				response.setCodeError(1);
+				response.setData(null);
+			}else {
+				response.setMessageResult("Customer with Id: " + customerEntity.getNumId()+ " was saved.");
+				response.setCodeError(0);
+			}
 
+				response.setMessage("Successful Save");
+				response.setSuccess(true);
+				response.setData(data);
+				status = HttpStatus.OK;
+			
 		} catch (Exception e) {
 
 			String msg = "Something has failed. Please contact support.";
@@ -95,59 +141,81 @@ public class CustomerController {
 		return new ResponseEntity<>(response, status);
 	}
 	
-	//Alistar un usuario por su Id
-	@GetMapping("/{id}")
-	public Optional<CustomerEntity> listOneCustomerId(@PathVariable("id") Long id) {
-		return customerServiceImpl.listOneCustomerId(id);
-	}
 	
-	//Editar/Actualizar la info de un usuario por su Id
+	//Editar/Actualizar cliente por su Id
 	@PutMapping("/{id}")
-	public ResponseEntity<GeneralResponse<CustomerEntity>> edit(@RequestBody CustomerEntity customerEntity, @PathVariable("id") Long id) {
+	public ResponseEntity<GeneralResponse<CustomerEntity>> edit(@RequestBody CustomerEntity customerEntity) {
 		
 		GeneralResponse<CustomerEntity> response = new GeneralResponse<>();
 		HttpStatus status = null;
 		CustomerEntity data= null;
-		customerEntity.setId(id);
 		
 		try {
 			
-			data = customerServiceImpl.add(customerEntity);
-			String msg = "It updated customer" + data.getId() + ".";
+			data = customerService.add(customerEntity);
+			if (data == null) {
+				response.setMessageResult( "0 customers were updated.");
+				response.setCodeError(1);
+				response.setData(null);
+			}else {
+				response.setMessageResult("Customer with Id: " + data.getId() + " was updated.");
+				response.setCodeError(0);
+			}
 			
-			response.setMessage(msg);
+			response.setMessage("Successful Update");
 			response.setSuccess(true);
 			response.setData(data);
 			status = HttpStatus.OK;
 			
 		} catch (Exception e) {
 			
-			String msg = "Something has failed. Please contact support.";
-			response.setMessage(msg);
-			response.setSuccess(false);
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
+			response.setMessage("Something has failed. Error: "+ e.getLocalizedMessage()  +" . Please contact support.");
+			response.setSuccess(false);
 		}
 		
 		return new ResponseEntity<>(response, status);
 	}
 	
-	//Eliminar la info de un usuario por su Id
+	//Eliminar la info de un cliente por su Id
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable("id") Long id) {
-		List<ProductEntity> productEntity = productServiceImpl.listProductId(id);
+	public ResponseEntity<GeneralResponse<Long>> delete(@PathVariable("id") Long id) {
+ 
+		GeneralResponse<Long> response = new GeneralResponse<>();
+		HttpStatus status = null;
+		
+		//Se verifica la cantidad de productos activos del cliente
+		List<ProductEntity> productEntity = productService.listProductId(id);
 		int state_count = 0;
 		for (ProductEntity model: productEntity) {
 			if (model.getState().equals("activa") || model.getState().equals("inactiva")) {
 				state_count ++;
 			}
 		}
-		
-		if (state_count > 0 ) {
-			System.out.println("Productos activos o inactivos");
-		} else {
-			System.out.println("Todos los productos cancelados");
-			customerServiceImpl.delete(id);
+		try {
+			customerService.delete(id);
+			
+			if(state_count > 0 || id ==null) {
+				response.setCodeError(1);
+				response.setMessageResult( "Customer still has products in his account or Id doesn't exist, it wasn't deleted.");
+				response.setData(null);
+			} else {
+				response.setCodeError(0);
+				response.setMessageResult("Customer with Id: " + id +" was deleted.");
+			}
+			
+			response.setMessage("Successful Removal");
+			response.setSuccess(true);
+			response.setData(id.longValue());
+			status = HttpStatus.OK;
+		}catch(Exception e) {
+			
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+			response.setMessage("Something has failed. Error: "+ e.getLocalizedMessage()  +" . Please contact support.");
+			response.setSuccess(false);
 		}
+		return new ResponseEntity<>(response, status);
 	}
+	
 	
 }
