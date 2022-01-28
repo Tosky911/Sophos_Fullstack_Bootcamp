@@ -19,50 +19,53 @@ public class ProductServiceImpl implements ProductService{
 	private ProductRepository productRepository;
 	
 	@Override
-	public List<ProductEntity> listProductId(Long customerId){
+	public List<ProductEntity> listProductId(Long customerId) throws Exception{
 		return productRepository.findByCustomerId(customerId);
 	}
 	
 	@Override
-	public ProductEntity listOneProductId(Long productId) {
+	public ProductEntity listOneProductId(Long productId) throws Exception{
 		return productRepository.findByProductId(productId);
 	}
 	
 	@Override
-	public ProductEntity addProduct(ProductEntity productEntity, Long customerId) {
+	public ProductEntity addProduct(ProductEntity productEntity) throws Exception{
 		return productRepository.save(productEntity);
 	}
 	
 	@Override
-	public ProductEntity changeState(ProductEntity productEntity) {
+	public ProductEntity changeState(ProductEntity productEntity) throws Exception{
 		return productRepository.save(productEntity);
 	}
 	
 	@Override
-	public ProductEntity updateBalance(ProductEntity productEntity) {
+	public ProductEntity updateBalance(ProductEntity productEntity) throws Exception{
 		return productRepository.save(productEntity);
 	}
 	
 	@Override
-	public List<ProductEntity> listIdOtherAvailableProducts(Long customerId, Long productId){
+	public List<ProductEntity> listIdOtherAvailableProducts(Long customerId, Long productId) throws Exception{
 		return productRepository.findByStateNotAndUserIdNotAndProductIdNot("Cancelado", customerId, productId);
 	}
 	
 	@Override
-	public ProductEntity cancelProduct(ProductEntity productEntity) {
+	public ProductEntity cancelProduct(ProductEntity productEntity) throws Exception{
 		return productRepository.save(productEntity);
 	}
 	
 	@Override 
-	public ProductEntity addToBalance(ProductEntity productEntity, int movement) {
+	public ProductEntity addToBalance(ProductEntity productEntity, int movement) throws Exception{
 		return productRepository.save(productEntity);
 	}
 	
 	@Override
-	public ProductEntity withdrawToBalance(ProductEntity productEntity, int movement) {
+	public ProductEntity withdrawToBalance(ProductEntity productEntity, int movement) throws Exception{
 		return productRepository.save(productEntity);
 	}
-	
-	
+
+	@Override
+	public ProductEntity findByCustomerIdAndProductId(Long customerId, Long productId) throws Exception {
+		return productRepository.findByCustomerIdAndProductId(customerId, productId);
+	}
 	
 }

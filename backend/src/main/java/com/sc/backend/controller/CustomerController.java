@@ -130,17 +130,15 @@ public class CustomerController {
 				status = HttpStatus.OK;
 			
 		} catch (Exception e) {
-
-			String msg = "Something has failed. Please contact support.";
-			response.setMessage(msg);
-			response.setSuccess(false);
+			
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
+			response.setMessage("Something has failed. Error: "+ e.getLocalizedMessage()  +" . Please contact support.");
+			response.setSuccess(false);
 			
 		}
 		
 		return new ResponseEntity<>(response, status);
 	}
-	
 	
 	//Editar/Actualizar cliente por su Id
 	@PutMapping("/{id}")
@@ -179,7 +177,7 @@ public class CustomerController {
 	
 	//Eliminar la info de un cliente por su Id
 	@DeleteMapping("/{id}")
-	public ResponseEntity<GeneralResponse<Long>> delete(@PathVariable("id") Long id) {
+	public ResponseEntity<GeneralResponse<Long>> delete(@PathVariable("id") Long id) throws Exception {
  
 		GeneralResponse<Long> response = new GeneralResponse<>();
 		HttpStatus status = null;
