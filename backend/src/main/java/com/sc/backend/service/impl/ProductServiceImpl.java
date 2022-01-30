@@ -19,17 +19,17 @@ public class ProductServiceImpl implements ProductService{
 	private ProductRepository productRepository;
 	
 	@Override
-	public List<ProductEntity> listProductId(Long customerId) throws Exception{
+	public List<ProductEntity> findAll(Long customerId) throws Exception{
 		return productRepository.findByCustomerId(customerId);
 	}
 	
 	@Override
-	public ProductEntity listOneProductId(Long productId) throws Exception{
+	public ProductEntity findById(Long productId) throws Exception{
 		return productRepository.findByProductId(productId);
 	}
 	
 	@Override
-	public ProductEntity addProduct(ProductEntity productEntity) throws Exception{
+	public ProductEntity save(ProductEntity productEntity) throws Exception{
 		return productRepository.save(productEntity);
 	}
 	
@@ -45,7 +45,7 @@ public class ProductServiceImpl implements ProductService{
 	
 	@Override
 	public List<ProductEntity> listIdOtherAvailableProducts(Long customerId, Long productId) throws Exception{
-		return productRepository.findByStateNotAndUserIdNotAndProductIdNot("Cancelado", customerId, productId);
+		return productRepository.findByStateAndUserIdAndNotProductId("Cancelado", customerId, productId);
 	}
 	
 	@Override

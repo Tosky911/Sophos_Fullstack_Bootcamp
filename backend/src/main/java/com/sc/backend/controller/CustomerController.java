@@ -152,7 +152,7 @@ public class CustomerController {
 			
 			data = customerService.add(customerEntity);
 			if (data == null) {
-				response.setMessageResult( "0 customers were updated.");
+				response.setMessageResult( "Unable to update a customer");
 				response.setCodeError(1);
 				response.setData(null);
 			}else {
@@ -183,7 +183,7 @@ public class CustomerController {
 		HttpStatus status = null;
 		
 		//Se verifica la cantidad de productos activos del cliente
-		List<ProductEntity> productEntity = productService.listProductId(id);
+		List<ProductEntity> productEntity = productService.findAll(id);
 		int state_count = 0;
 		for (ProductEntity model: productEntity) {
 			if (model.getState().equals("activa") || model.getState().equals("inactiva")) {

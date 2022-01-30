@@ -6,9 +6,9 @@ import com.sc.backend.entity.ProductEntity;
 
 public interface ProductService{
 
-	public List<ProductEntity> listProductId(Long customerId) throws Exception;
-	public ProductEntity listOneProductId(Long productId) throws Exception;
-	public ProductEntity addProduct(ProductEntity productEntity) throws Exception;
+	public List<ProductEntity> findAll(Long customerId) throws Exception;
+	public ProductEntity findById(Long productId) throws Exception;
+	public ProductEntity save(ProductEntity productEntity) throws Exception;
 	public ProductEntity changeState(ProductEntity productEntity) throws Exception;
 	public ProductEntity updateBalance(ProductEntity productEntity) throws Exception;
 	public List<ProductEntity> listIdOtherAvailableProducts(Long customerId, Long productId) throws Exception;
