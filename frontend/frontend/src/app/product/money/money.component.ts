@@ -54,7 +54,7 @@ export class MoneyComponent implements OnInit {
       .subscribe({
         next: () => {
           alert('Retiro realizado');
-          this.router.navigate(['clients', params.get('id'), 'products']);
+          this.router.navigate(['users', params.get('id'), 'products']);
         },
         error: (e) => console.error(e),
       });

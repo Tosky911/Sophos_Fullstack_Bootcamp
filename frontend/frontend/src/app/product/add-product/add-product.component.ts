@@ -46,7 +46,7 @@ export class AddProductComponent implements OnInit {
       if (params.has('id')) {
         this.productService
           .getProduct(params.get('id'))
-          .subscribe((data) => (this.products = data));
+          .subscribe(resp => (this.products = resp.data));
         this.productService.createProduct(data, params.get('id')).subscribe({
           next: () => {
             alert('El producto ha sido creado con éxito');

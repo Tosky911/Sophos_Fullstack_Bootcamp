@@ -1,0 +1,51 @@
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h3>Estado de cuenta </h3>
+            <!-- <h2>{{product.}}</h2> -->
+            
+        </div>
+        <div class="card-body">
+            <table class="table table-striped table-hover table-sm">
+            <thead>
+                <tr style="text-align:center;">
+                    <th> Fecha </th>
+                    <th> Descripción </th>
+                    <th> Movimiento financiero </th>
+                    <th> Tipo de movimiento </th>
+                    <th> Valor </th>
+                    <th> Saldo final </th>
+
+                </tr>
+            </thead>
+            <tbody class="align-middle;">
+                <tr *ngFor="let transaction of transactions" class="text-center">
+                    <td class="align-middle">{{transaction.transactionDate}}</td>
+                    <td class="align-middle">{{transaction.transactionDetails}}</td>
+                    <td class="align-middle">{{transaction.financeMovement}}</td>
+                    <td class="align-middle">{{transaction.transactionType}}</td>
+                    <td class="align-middle">{{transaction.transactionValue}}</td>
+                    <td class="align-middle">{{transaction.finalBalance}}</td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+        <div class="btn-holder"
+        style="justify-content: flex-end; display: flex; margin-bottom: 10px">
+            <button
+            (click)="backProduct()"
+            class="btn btn-danger"
+            style="
+              width: 15%;
+              margin-left: 10px;
+              text-align: center;
+              margin-bottom: 10px;
+              margin-top: 10px;
+            "
+            type="submit"
+          >
+            Volver
+          </button>
+        </div>
+    </div>
+</div>

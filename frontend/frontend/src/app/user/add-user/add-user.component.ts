@@ -24,8 +24,6 @@ export class AddUserComponent implements OnInit {
     typeId: '',
     //Numero documento
     numId: '',
-    //Nombre de usuario
-    username: '',
     //Nombres
     firstName: '',
     //Apellidos
@@ -40,22 +38,21 @@ export class AddUserComponent implements OnInit {
   };
 
   //Guardar usuario
-  saveUser(): void{
+  save(): void{
     const data={
       typeId: this.user.typeId,
       numId: this.user.numId,
-      username: this.user.username,
       firstName: this.user.firstName,
       lastName: this.user.lastName,
       email: this.user.email,
       birthdayDate: this.user.birthdayDate,
-      creationDate: formatDate(this.dateNow, 'YYYY-MM-dd', 'en-US')
+      creationDate: formatDate(this.dateNow, 'YYYY/MM/dd', 'en-US')
     };
 
-    this.userService.createUser(data)
+    this.userService.save(data)
     .subscribe({
       next: ()=>{
-      alert("El usuario ha sido creado exitosamete");
+      alert("El cliente ha sido creado exitosamente");
       this.router.navigate(["users"])
     },
 

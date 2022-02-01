@@ -15,7 +15,6 @@ export class EditUserComponent implements OnInit {
     numId: '',
     firstName: '',
     lastName: '',
-    username: '',
     email: '',
     birthdayDate: '',
     creationDate: '',
@@ -30,34 +29,34 @@ export class EditUserComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params=> {
       if (params.has("id")){
-        this.userService.getUserId(params.get("id")).subscribe(data =>this.currentUser = data);
+        this.userService.listOneCustomerId(params.get("id")).subscribe(resp =>this.currentUser = resp.data);
       }
     })
   }
   
-  getUser(id: String): void{
-    this.userService.getUserId(id)
+  list(id: any): void{
+    this.userService.listOneCustomerId(id)
     .subscribe({
-      next: (data)=>{
-        this.currentUser = data;
+      next: (resp)=>{
+        this.currentUser = resp.data;
       },
       error: (e) => console.error(e)
     });
   }
   
-  updateUser(): void{
-    this.userService.updateUser(this.currentUser.id, this.currentUser)
+  edit(): void{
+    this.userService.edit(this.currentUser.id, this.currentUser)
     .subscribe({
       next: (res) => {
-        alert("La información del usuario fue actualizada con éxito. Será redirigido al Panel de Usuarios");
+        alert("La información del cliente fue actualizada con éxito. Será redirigido al panel de clientes");
         this.router.navigate(['/users']);
       },
       error: (e) => console.error(e)
     });
   }
   
-  deleteUser(): void{
-    this.userService.deleteUser(this.currentUser.id)
+  delete(): void{
+    this.userService.delete(this.currentUser.id)
     .subscribe({
       next: (res) => {
         this.router.navigate(['/users']);
@@ -69,6 +68,4 @@ export class EditUserComponent implements OnInit {
   backUser(): void{
     this.router.navigate(['/users']);
   }
-  
-
 }

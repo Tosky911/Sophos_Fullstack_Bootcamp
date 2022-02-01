@@ -2,41 +2,42 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/entities/user';
+import { GeneralResponse } from 'src/app/shared/models/general-response';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  UrlUser = 'http://localhost:8080/users/';
+  UrlUser = 'http://localhost:8080/customers/';
   constructor(private http:HttpClient) { }
 
   //Listar todos los clientes de la BBDD
-  getUser(): Observable<User[]>{
-    return this.http.get<User[]>(this.UrlUser);
+  get(): Observable<GeneralResponse<User[]>>{
+    return this.http.get<GeneralResponse<User[]>>(this.UrlUser);
   }
   
   //Crear un usuario
-  createUser(data: any): Observable<any>{
-    return this.http.post(this.UrlUser,data);
+  save(user: User): Observable<GeneralResponse<User[]>>{
+    return this.http.post<GeneralResponse<User[]>>(this.UrlUser, user);
   }
 
   //Listar un solo usuario
-  getUserId(id:any): Observable<any>{
+  listOneCustomerId(id:any): Observable<GeneralResponse<User>>{
     const url = `${this.UrlUser}${id}`;
-    return this.http.get(url);
+    return this.http.get<GeneralResponse<User>>(url);
   }
 
   //Actualizar los datos del usuario
-  updateUser(id:any, data:any): Observable<any>{
+  edit(id:any, user:User): Observable<GeneralResponse<User[]>>{
     const url = `${this.UrlUser}${id}`;
-    return this.http.put(url, data);
+    return this.http.put<GeneralResponse<User[]>>(url, user);
   }
 
   //Borrar un usuario
-  deleteUser(id:any): Observable<any>{
+  delete(id:any): Observable<GeneralResponse<number>>{
     const url = `${this.UrlUser}${id}`;
-    return this.http.delete(url);
+    return this.http.delete<GeneralResponse<number>>(url);
   }
 
 }

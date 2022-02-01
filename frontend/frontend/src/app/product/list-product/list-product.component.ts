@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/entities/product';
 import { ProductService } from 'src/app/services/services/product/product.service';
 import { UserService } from 'src/app/services/services/user/user.service';
-
 @Component({
   selector: 'app-list-product',
   templateUrl: './list-product.component.html',
@@ -11,19 +10,19 @@ import { UserService } from 'src/app/services/services/user/user.service';
 })
 export class ListProductComponent implements OnInit {
 
-  products?:Product[];
+  products?: Product[];
   currentProduct: Product = {};
   currentIndex = -1;
 
   constructor(private productService:ProductService,
-    private userService: UserService, 
+    private userService: UserService,
     private route: ActivatedRoute,
     private router:Router) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params=> {
       if (params.has("id")){
-        this.productService.getProduct(params.get("id")).subscribe(data =>this.products = data);
+        this.productService.getProduct(params.get("id")).subscribe(resp =>this.products = resp.data);
       }
     })
   }
@@ -37,27 +36,52 @@ export class ListProductComponent implements OnInit {
     
   }
 
+  backProduct(): void {
+    this.route.paramMap.subscribe((params) => {
+      this.router.navigate(['users', params.get('id'), 'products']);
+    });
+
+  }
+
   addMovementMoney(userId:any, productId:any): void{
     this.router.navigate(["users/",userId,"products",productId,"transaction"])
-    
   }
 
   accountStatus(userId:any, productId:any): void{
     this.router.navigate(["users/",userId,"products",productId,"transactions"])
-    
   }
 
-  updateProduct(userId:any, productId:any): void{
-    this.productService.updateStateProduct(userId, productId, this.currentProduct)
+  activateProduct(userId:any, productId:any): void{
+    this.productService.activateProduct(userId, productId, this.currentProduct)
     .subscribe({
       next: (res) => {
         alert("El estado del producto fue actualizado con éxito");
         this.route.paramMap.subscribe(params=> {
-        this.productService.getProduct(params.get("id")).subscribe(data =>this.products = data);})
+        this.productService.getProduct(params.get("id")).subscribe(resp =>this.products = resp.data);})
         this.route.paramMap.subscribe(params=> {
         this.router.navigate(["users/",params.get("id"),"products"]);})
       },
-      error: (e) => console.error(e)
+      error: (e: any) => console.error(e)
+    });
+    this.route.paramMap.subscribe(params=> {
+      this.router.navigate(["users/"]);
+      if (params.has("id")){        
+      this.router.navigate(["users/",params.get("id"),"products"]);
+      }
+    })
+  }
+
+  deactivateProduct(userId:any, productId:any): void{
+    this.productService.deactivateProduct(userId, productId, this.currentProduct)
+    .subscribe({
+      next: (res) => {
+        alert("El estado del producto fue actualizado con éxito");
+        this.route.paramMap.subscribe(params=> {
+        this.productService.getProduct(params.get("id")).subscribe(resp =>this.products = resp.data);})
+        this.route.paramMap.subscribe(params=> {
+        this.router.navigate(["users/",params.get("id"),"products"]);})
+      },
+      error: (e: any) => console.error(e)
     });
     this.route.paramMap.subscribe(params=> {
       this.router.navigate(["users/"]);
@@ -68,13 +92,13 @@ export class ListProductComponent implements OnInit {
   }
 
   cancelProduct(userId:any, productId:any): void{
-    this.productService.cancelStateProduct(userId, productId, this.currentProduct)
+    this.productService.cancelProduct(userId, productId, this.currentProduct)
     .subscribe({
       next: (res) => {
 
-        alert("Actualización realizada con éxito. Mientras la cuenta tenga saldo no podrá ser cancelada");
+        alert("Actualización realizada con éxito");
         this.route.paramMap.subscribe(params=> {
-          this.productService.getProduct(params.get("id")).subscribe(data =>this.products = data);})
+          this.productService.getProduct(params.get("id")).subscribe(resp =>this.products = resp.data);})
         this.route.paramMap.subscribe(params=> {
           this.router.navigate(["users/",params.get("id"),"products"]);
           this.router.routeReuseStrategy.shouldReuseRoute = function() { return false; };
@@ -83,4 +107,22 @@ export class ListProductComponent implements OnInit {
       error: (e) => console.error(e)
     });
   }
+
+  uncancelProduct(userId:any, productId:any): void{
+    this.productService.uncancelProduct(userId, productId, this.currentProduct)
+    .subscribe({
+      next: (res) => {
+
+        alert("Actualización realizada con éxito. Se ha reestablecido la cuenta.");
+        this.route.paramMap.subscribe(params=> {
+          this.productService.getProduct(params.get("id")).subscribe(resp =>this.products = resp.data);})
+        this.route.paramMap.subscribe(params=> {
+          this.router.navigate(["users/",params.get("id"),"products"]);
+          this.router.routeReuseStrategy.shouldReuseRoute = function() { return false; };
+        })
+      },
+      error: (e) => console.error(e)
+    });
+  }
+
 }

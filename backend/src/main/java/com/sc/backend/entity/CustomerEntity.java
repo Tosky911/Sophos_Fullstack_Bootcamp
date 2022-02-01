@@ -34,13 +34,13 @@ public class CustomerEntity {
 	public CustomerEntity () {}
 
 	//Constructor
-	public CustomerEntity(Long id, String typeId, String numId, String firsName, String lastName, String email,
+	public CustomerEntity(Long id, String typeId, String numId, String firstName, String lastName, String email,
 			String birthdayDate, String creationDate) {
 		super();
 		this.id = id;
 		this.typeId = typeId;
 		this.numId = numId;
-		this.firstName = firsName;
+		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.birthdayDate = birthdayDate;
@@ -73,12 +73,12 @@ public class CustomerEntity {
 		this.numId = numId;
 	}
 
-	public String getFirsName() {
+	public String getFirstName() {
 		return firstName;
 	}
 
-	public void setFirsName(String firsName) {
-		this.firstName = firsName;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
 	public String getLastName() {

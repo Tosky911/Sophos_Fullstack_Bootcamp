@@ -27,7 +27,7 @@ import com.sc.backend.service.ProductService;
 
 @CrossOrigin(origins= "http://localhost:4200")
 @RestController
-@RequestMapping("/customers")
+@RequestMapping(value= "/customers", produces= "application/json")
 public class CustomerController {
 
 	@Autowired

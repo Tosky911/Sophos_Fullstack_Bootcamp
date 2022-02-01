@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Transaction } from 'src/app/entities/transaction';
-import { ProductService } from 'src/app/services/services/product/product.service';
 import { TransactionService } from 'src/app/services/services/transaction/transaction.service';
-import { UserService } from 'src/app/services/services/user/user.service';
 
 @Component({
   selector: 'app-list-transaction',
@@ -14,8 +12,7 @@ export class ListTransactionComponent implements OnInit {
 
   transactions?: Transaction[];
 
-  constructor(private productService:ProductService,
-    private userService: UserService,
+  constructor(
     private transactionService: TransactionService, 
     private route: ActivatedRoute,
     private router:Router) { }

@@ -8,7 +8,7 @@ import { Product } from 'src/app/entities/product';
   providedIn: 'root'
 })
 export class TransactionService {
-  UrlTransaction = 'http://localhost:8080/users/';
+  UrlTransaction = 'http://localhost:8080/customers/';
   constructor(private http:HttpClient) { }
 
   //Listar todas las transacciones por producto/cuenta

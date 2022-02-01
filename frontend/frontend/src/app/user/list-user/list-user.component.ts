@@ -10,14 +10,17 @@ import { UserService } from 'src/app/services/services/user/user.service';
 })
 export class ListUserComponent implements OnInit {
 
-  users?:User[];
+  users: User[] = [];
   currentUser: User ={};
-  currentIndex = -1;
 
   constructor(private service:UserService, private router:Router) { }
 
   ngOnInit(): void {
-    this.service.getUser().subscribe(data=>{this.users=data;})
+    this.getUsers();
+  }
+
+  getUsers(){
+    this.service.get().subscribe(resp=>{this.users= resp.data});
   }
 
   setActiveUser(user: User): void{
