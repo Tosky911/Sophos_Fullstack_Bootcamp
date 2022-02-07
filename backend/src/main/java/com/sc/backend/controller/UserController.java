@@ -1,14 +1,14 @@
 package com.sc.backend.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-//import org.springframework.security.authentication.AuthenticationManager;
-//import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-//import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sc.backend.entity.UserEntity;
 import com.sc.backend.model.GeneralResponse;
 import com.sc.backend.service.UserService;
-//import com.sc.backend.util.JwtUtils;
+import com.sc.backend.util.JwtUtils;
 
 @CrossOrigin(origins = "http:localhost:4200")
 @RestController
@@ -32,11 +32,14 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-//	@Autowired
-//	private AuthenticationManager authenticationManager;
-//	
-//	@Autowired
-//	private JwtUtils jwtUtils;
+	@Autowired
+	private AuthenticationManager authenticationManager;
+	
+	@Autowired
+	private JwtUtils jwtUtils;
+
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder; 
 	
 	/**
 	 * Login with userName and password.
@@ -45,45 +48,45 @@ public class UserController {
 	 * @return
 	 */
 	
-//	@PostMapping("/auth")
-//	public ResponseEntity<GeneralResponse<UserEntity>> login(@RequestBody UserEntity user) {
-//		
-//		GeneralResponse<UserEntity> response = new GeneralResponse<>();
-//		HttpStatus status = null;
-//
-//		try {
-//			
-//			authenticationManager.authenticate(
-//					new UsernamePasswordAuthenticationToken(user.getUserName(), user.getPassword())
-//					);
-//			user.setJwt(jwtUtils.generateToken(user.getUserName()));
-//			
-//			user.setPassword(null);
-//			String msg = "Login successfull for user " + user.getUserName() + ".";
-//			
-//			response.setMessage(msg);
-//			response.setSuccess(true);
-//			response.setData(user);
-//			status = HttpStatus.OK;
-//			
-//		} catch (AuthenticationException e) {
-//			
-//			String msg = "Usuario o clave incorrectos.";
-//			status = HttpStatus.FORBIDDEN;
-//			response.setMessage(msg);
-//			response.setSuccess(false);
-//		
-//		} catch (Exception e) {
-//			
-//			String msg = "Something has failed. Please contact support.";
-//			status = HttpStatus.INTERNAL_SERVER_ERROR;
-//			response.setMessage(msg);
-//			response.setSuccess(false);
-//		
-//		}
-//
-//		return new ResponseEntity<>(response, status);
-//	}
+	@PostMapping("/auth")
+	public ResponseEntity<GeneralResponse<UserEntity>> login(@RequestBody UserEntity user) {
+		
+		GeneralResponse<UserEntity> response = new GeneralResponse<>();
+		HttpStatus status = null;
+
+		try {
+			
+			authenticationManager.authenticate(
+					new UsernamePasswordAuthenticationToken(user.getUserName(), user.getPassword())
+					);
+			user.setJwt(jwtUtils.generateToken(user.getUserName()));
+			
+			user.setPassword(null);
+			String msg = "Login successfull for user " + user.getUserName() + ".";
+			
+			response.setMessage(msg);
+			response.setSuccess(true);
+			response.setData(user);
+			status = HttpStatus.OK;
+			
+		} catch (AuthenticationException e) {
+			
+			String msg = "Usuario o clave incorrectos.";
+			status = HttpStatus.FORBIDDEN;
+			response.setMessage(msg);
+			response.setSuccess(false);
+		
+		} catch (Exception e) {
+			
+			String msg = "Something has failed. Please contact support.";
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+			response.setMessage(msg);
+			response.setSuccess(false);
+		
+		}
+
+		return new ResponseEntity<>(response, status);
+	}
 
 
 	/**
@@ -125,48 +128,7 @@ public class UserController {
 		}
 		return new ResponseEntity<>(response, status);
 	}
-	
-	/**
-	 * Usuario por userName.
-	 * 
-	 * @return <UserVO>
-	 */
-	
-	@GetMapping("/{userName}")
-	public ResponseEntity<GeneralResponse<UserEntity>> findByUserName(@PathVariable("userName") String userName){
-		
-		GeneralResponse<UserEntity> response = new GeneralResponse<>();
-		HttpStatus status = null;
-		Optional<UserEntity> user; 
 
-		try {
-			user = userService.findByUserName(userName);
-			
-			if (user == null || user.get() == null) {
-				response.setMessageResult( "User wasn't found.");
-				response.setCodeError(1);
-				response.setData(null);
-			}else {
-				response.setMessageResult("User " + userName +" was found.");
-				response.setCodeError(0);
-
-			}
-
-			response.setMessage("Successful Query");
-			response.setSuccess(true);
-			response.setData(user.get());
-			status = HttpStatus.OK;
-			
-		} catch (Exception e) {
-			
-			status = HttpStatus.INTERNAL_SERVER_ERROR;
-			response.setMessage("Something has failed. Error: "+ e.getLocalizedMessage()  +". Please contact support.");
-			response.setSuccess(false);
-		}
-		return new ResponseEntity<>(response, status);
-	}
-	
-	
 	/**
 	 * Save/Guardar usuarios.
 	 * 
@@ -174,21 +136,22 @@ public class UserController {
 	 */
 
 	@PostMapping
-	public ResponseEntity<GeneralResponse<List<UserEntity>>> save(@RequestBody List<UserEntity> users) {
+	public ResponseEntity<GeneralResponse<UserEntity>> save(@RequestBody UserEntity user) {
 		
-		GeneralResponse<List<UserEntity>> response = new GeneralResponse<>();
+		GeneralResponse<UserEntity> response = new GeneralResponse<>();
 		HttpStatus status = null;
-		List<UserEntity> data = null; 
-
+		UserEntity data = null; 
+		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+		
 		try {
-			data = userService.save(users);
-			
-			if(data == null || data.size() == 0) {
+			data = userService.save(user);
+
+			if(data == null) {
 				response.setMessageResult( "0 users were saved.");
 				response.setCodeError(1);
 				response.setData(null);
 			}else {
-				response.setMessageResult(data.size()+ " users were saved.");
+				response.setMessageResult("User: "+ data.getUserName() +" was saved.");
 				response.setCodeError(0);
 			}
 			
@@ -206,27 +169,27 @@ public class UserController {
 	}
 	
 	/**
-	 * Update/Actualizar usuarios.
+	 * Update/Actualizar usuario.
 	 * 
 	 * @return @List<UserVO>
 	 */
 
 	@PutMapping
-	public ResponseEntity<GeneralResponse<List<UserEntity>>> update(@RequestBody List<UserEntity> users) {
+	public ResponseEntity<GeneralResponse<UserEntity>> update(@RequestBody UserEntity user) {
 		
-		GeneralResponse<List<UserEntity>> response = new GeneralResponse<>();
+		GeneralResponse<UserEntity> response = new GeneralResponse<>();
 		HttpStatus status = null;
-		List<UserEntity> data = null; 
+		UserEntity data = null; 
 
 		try {
 
-			data = userService.save(users);
-			if (data == null || data.size() == 0) {
-				response.setMessageResult( "0 users were updated.");
+			data = userService.save(user);
+			if (data == null) {
+				response.setMessageResult("User wasn't updated.");
 				response.setCodeError(1);
 				response.setData(null);
 			}else {
-				response.setMessageResult(data.size() + " users were updated.");
+				response.setMessageResult("User "+data.getUserName() + " was updated.");
 				response.setCodeError(0);
 			}
 			

@@ -44,7 +44,10 @@ export class ListProductComponent implements OnInit {
   }
 
   addMovementMoney(userId:any, productId:any): void{
-    this.router.navigate(["users/",userId,"products",productId,"transaction"])
+    console.log(userId);
+    //this.router.navigate(["users/",userId,"products",productId,"transaction"])
+    this.router.navigate(["users/"+userId+"/products/"+productId+"/transaction"])
+  
   }
 
   accountStatus(userId:any, productId:any): void{
