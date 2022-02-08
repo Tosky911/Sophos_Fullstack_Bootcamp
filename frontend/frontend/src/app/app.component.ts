@@ -16,11 +16,11 @@ export class AppComponent {
   }
 
   List(){
-    this.router.navigate(['users']);
+    this.router.navigate(['customers']);
   }
 
   New(){
-    this.router.navigate(['addUser']);
+    this.router.navigate(['addCustomer']);
   }
 
 }

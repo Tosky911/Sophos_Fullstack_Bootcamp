@@ -19,17 +19,17 @@
                 </tr>
             </thead>
             <tbody class="align-middle;">
-                <tr *ngFor ="let user of users" class="text-center">
-                    <td class="align-middle">{{user.id}}</td>
-                    <td class="align-middle">{{user.typeId}}</td>
-                    <td class="align-middle">{{user.numId}}</td>
-                    <td class="align-middle">{{user.firstName}}</td>
-                    <td class="align-middle">{{user.lastName}}</td>
-                    <td class="align-middle">{{user.email}}</td>
-                    <td class="align-middle">{{user.birthdayDate}}</td>
-                    <td class="align-middle">{{user.creationDate}}</td>
+                <tr *ngFor ="let customer of customers" class="text-center">
+                    <td class="align-middle">{{customer.id}}</td>
+                    <td class="align-middle">{{customer.typeId}}</td>
+                    <td class="align-middle">{{customer.numId}}</td>
+                    <td class="align-middle">{{customer.firstName}}</td>
+                    <td class="align-middle">{{customer.lastName}}</td>
+                    <td class="align-middle">{{customer.email}}</td>
+                    <td class="align-middle">{{customer.birthdayDate}}</td>
+                    <td class="align-middle">{{customer.creationDate}}</td>
                     <td class="align-middle">
-                        <button (click)="EditUser(user.id)" class="btn btn-secondary">Acciones</button>
+                        <button (click)="EditCustomer(customer.id)" class="btn btn-secondary">Acciones</button>
                     </td>
                 </tr>
             </tbody>

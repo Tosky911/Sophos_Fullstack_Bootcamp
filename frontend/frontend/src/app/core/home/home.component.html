@@ -1,0 +1,13 @@
+<div class="container-fluid" align="center">
+  <div *ngIf="isLogged">
+    <span>Logged in User: {{ globalService.user.userName }}</span>
+    <a mat-button class="button-bar" (click)="signOut()">Logout </a>
+  </div>
+  <div *ngIf="isLogged; else isNotLogged">
+    <app-user></app-user>
+  </div>
+
+  <ng-template #isNotLogged>
+    <app-login (login)="authenticated($event)"></app-login>
+  </ng-template>
+</div>

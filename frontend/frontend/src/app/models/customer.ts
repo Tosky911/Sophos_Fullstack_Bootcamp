@@ -1,4 +1,4 @@
-export class User{
+export class Customer{
     id?: number;
 	//Tipo documento
 	typeId?: string;

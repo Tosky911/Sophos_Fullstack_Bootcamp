@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Product } from 'src/app/entities/product';
+import { Product } from 'src/app/models/product';
 import { ProductService } from 'src/app/services/services/product/product.service';
 
 

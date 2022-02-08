@@ -1,9 +1,8 @@
-import { HttpErrorResponse, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http"
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Router } from "@angular/router"
 import { catchError, Observable, throwError } from "rxjs"
 import { GlobalService } from "./services/global.service"
-
 
 @Injectable({
     providedIn: 'root'
@@ -32,7 +31,7 @@ export class HttpConfigInterceptor implements HttpInterceptor{
 
         return next.handle(request).pipe(
             catchError((error: HttpErrorResponse) => {
-                if(error.status === 401){
+                if(error.status === 403){
                     this.router.navigateByUrl("/customers");
                 }
                 return throwError(error);

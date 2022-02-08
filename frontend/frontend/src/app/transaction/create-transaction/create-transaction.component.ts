@@ -1,8 +1,8 @@
 import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Product } from 'src/app/entities/product';
-import { Transaction } from 'src/app/entities/transaction';
+import { Product } from 'src/app/models/product';
+import { Transaction } from 'src/app/models/transaction';
 import { TransactionService } from 'src/app/services/services/transaction/transaction.service';
 
 @Component({

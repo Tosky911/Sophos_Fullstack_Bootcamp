@@ -1,24 +1,24 @@
 import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from 'src/app/entities/user';
-import { UserService } from 'src/app/services/services/user/user.service';
+import { Customer } from 'src/app/models/customer';
+import { CustomerService } from 'src/app/services/services/customer/customer.service';
 
 @Component({
-  selector: 'app-add-user',
-  templateUrl: './add-user.component.html',
-  styleUrls: ['./add-user.component.css']
+  selector: 'app-add-customer',
+  templateUrl: './add-customer.component.html',
+  styleUrls: ['./add-customer.component.css']
 })
-export class AddUserComponent implements OnInit {
+export class AddCustomerComponent implements OnInit {
 
-  constructor(private router:Router, private userService:UserService) { }
+  constructor(private router:Router, private customerService:CustomerService) { }
 
   dateNow = new Date();
 
   ngOnInit(): void {
   }
 
-  user: User = {
+  customer: Customer = {
 
     //Tipo documento
     typeId: '',
@@ -40,20 +40,20 @@ export class AddUserComponent implements OnInit {
   //Guardar usuario
   save(): void{
     const data={
-      typeId: this.user.typeId,
-      numId: this.user.numId,
-      firstName: this.user.firstName,
-      lastName: this.user.lastName,
-      email: this.user.email,
-      birthdayDate: this.user.birthdayDate,
+      typeId: this.customer.typeId,
+      numId: this.customer.numId,
+      firstName: this.customer.firstName,
+      lastName: this.customer.lastName,
+      email: this.customer.email,
+      birthdayDate: this.customer.birthdayDate,
       creationDate: formatDate(this.dateNow, 'YYYY/MM/dd', 'en-US')
     };
 
-    this.userService.save(data)
+    this.customerService.save(data)
     .subscribe({
       next: ()=>{
       alert("El cliente ha sido creado exitosamente");
-      this.router.navigate(["users"])
+      this.router.navigate(["customers"])
     },
 
     error: (e) => console.error(e)

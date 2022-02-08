@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { User } from 'src/app/entities/user';
-import { UserService } from 'src/app/services/services/user/user.service';
+import { Customer } from 'src/app/models/customer';
+import { CustomerService } from 'src/app/services/services/customer/customer.service';
 
 @Component({
-  selector: 'app-edit-user',
-  templateUrl: './edit-user.component.html',
-  styleUrls: ['./edit-user.component.css']
+  selector: 'app-edit-customer',
+  templateUrl: './edit-customer.component.html',
+  styleUrls: ['./edit-customer.component.css']
 })
-export class EditUserComponent implements OnInit {
+export class EditCustomerComponent implements OnInit {
 
-   currentUser: User = {
+   currentCustomer: Customer = {
     typeId: '',
     numId: '',
     firstName: '',
@@ -21,7 +21,7 @@ export class EditUserComponent implements OnInit {
   };
   
   constructor(
-    private userService: UserService,
+    private customerService: CustomerService,
     private route: ActivatedRoute,
     private router: Router
   ) { }
@@ -29,43 +29,43 @@ export class EditUserComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params=> {
       if (params.has("id")){
-        this.userService.listOneCustomerId(params.get("id")).subscribe(resp =>this.currentUser = resp.data);
+        this.customerService.listOneCustomerId(params.get("id")).subscribe(resp =>this.currentCustomer = resp.data);
       }
     })
   }
   
   list(id: any): void{
-    this.userService.listOneCustomerId(id)
+    this.customerService.listOneCustomerId(id)
     .subscribe({
       next: (resp)=>{
-        this.currentUser = resp.data;
+        this.currentCustomer = resp.data;
       },
       error: (e) => console.error(e)
     });
   }
   
   edit(): void{
-    this.userService.edit(this.currentUser.id, this.currentUser)
+    this.customerService.edit(this.currentCustomer.id, this.currentCustomer)
     .subscribe({
       next: (res) => {
         alert("La información del cliente fue actualizada con éxito. Será redirigido al panel de clientes");
-        this.router.navigate(['/users']);
+        this.router.navigate(['/customers']);
       },
       error: (e) => console.error(e)
     });
   }
   
   delete(): void{
-    this.userService.delete(this.currentUser.id)
+    this.customerService.delete(this.currentCustomer.id)
     .subscribe({
       next: (res) => {
-        this.router.navigate(['/users']);
+        this.router.navigate(['/customers']);
       },
       error: (e) => console.error(e)
     });
   }
   
-  backUser(): void{
-    this.router.navigate(['/users']);
+  backCustomer(): void{
+    this.router.navigate(['/customers']);
   }
 }

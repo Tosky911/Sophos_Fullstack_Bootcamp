@@ -14,7 +14,7 @@
               class="form-control"
               placeholder="Nombre"
               name="firstName"
-              [(ngModel)]="currentUser.firstName"
+              [(ngModel)]="currentCustomer.firstName"
               required
             />
           </div>
@@ -26,7 +26,7 @@
               class="form-control"
               placeholder="Apellido"
               name="lastName"
-              [(ngModel)]="currentUser.lastName"
+              [(ngModel)]="currentCustomer.lastName"
               required
             />
           </div>
@@ -36,7 +36,7 @@
               id="typeId"
               class="form-select"
               name="typeId"
-              [(ngModel)]="currentUser.typeId"
+              [(ngModel)]="currentCustomer.typeId"
               required
             >
               <option value="CC" selected>CC | Cédula ciudadania</option>
@@ -54,7 +54,7 @@
               class="form-control"
               placeholder="123456789"
               name="numId"
-              [(ngModel)]="currentUser.numId"
+              [(ngModel)]="currentCustomer.numId"
               required
             />
           </div>
@@ -66,7 +66,7 @@
               class="form-control"
               placeholder="correo_ejemplo@email.com"
               name="email"
-              [(ngModel)]="currentUser.email"
+              [(ngModel)]="currentCustomer.email"
               required
             />
           </div>
@@ -77,7 +77,7 @@
               type="date"
               class="form-control"
               name="birthdayDate"
-              [(ngModel)]="currentUser.birthdayDate"
+              [(ngModel)]="currentCustomer.birthdayDate"
               required
             />
           </div>
@@ -89,7 +89,7 @@
             Eliminar
           </button>
 
-          <button (click)="backUser()" class="btn btn-info" style=" width: 40%; margin-left: 10px; text-align: center; margin-bottom: 10px; " type="submit">Atrás</button>
+          <button (click)="backCustomer()" class="btn btn-info" style=" width: 40%; margin-left: 10px; text-align: center; margin-bottom: 10px; " type="submit">Atrás</button>
         </form>
       </div>
     </div>

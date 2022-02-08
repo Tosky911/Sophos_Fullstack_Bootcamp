@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Product } from 'src/app/entities/product';
+import { Product } from 'src/app/models/product';
 import { ProductService } from 'src/app/services/services/product/product.service';
-import { UserService } from 'src/app/services/services/user/user.service';
+import { CustomerService } from 'src/app/services/services/customer/customer.service';
 @Component({
   selector: 'app-list-product',
   templateUrl: './list-product.component.html',
@@ -15,7 +15,7 @@ export class ListProductComponent implements OnInit {
   currentIndex = -1;
 
   constructor(private productService:ProductService,
-    private userService: UserService,
+    private customerService: CustomerService,
     private route: ActivatedRoute,
     private router:Router) { }
 
@@ -30,7 +30,7 @@ export class ListProductComponent implements OnInit {
   AddProduct(id: any): void{
     this.route.paramMap.subscribe(params=> {
       if (params.has("id")){        
-        this.router.navigate(["users/",params.get("id"),"products","add"]);
+        this.router.navigate(["customers/",params.get("id"),"products","add"]);
       }
     })
     
@@ -38,64 +38,64 @@ export class ListProductComponent implements OnInit {
 
   backProduct(): void {
     this.route.paramMap.subscribe((params) => {
-      this.router.navigate(['users', params.get('id'), 'products']);
+      this.router.navigate(['customers', params.get('id'), 'products']);
     });
 
   }
 
-  addMovementMoney(userId:any, productId:any): void{
-    console.log(userId);
-    //this.router.navigate(["users/",userId,"products",productId,"transaction"])
-    this.router.navigate(["users/"+userId+"/products/"+productId+"/transaction"])
+  addMovementMoney(customerId:any, productId:any): void{
+    console.log(customerId);
+    //this.router.navigate(["customers/",customerId,"products",productId,"transaction"])
+    this.router.navigate(["customers/"+customerId+"/products/"+productId+"/transaction"])
   
   }
 
-  accountStatus(userId:any, productId:any): void{
-    this.router.navigate(["users/",userId,"products",productId,"transactions"])
+  accountStatus(customerId:any, productId:any): void{
+    this.router.navigate(["customers/",customerId,"products",productId,"transactions"])
   }
 
-  activateProduct(userId:any, productId:any): void{
-    this.productService.activateProduct(userId, productId, this.currentProduct)
+  activateProduct(customerId:any, productId:any): void{
+    this.productService.activateProduct(customerId, productId, this.currentProduct)
     .subscribe({
       next: (res) => {
         alert("El estado del producto fue actualizado con éxito");
         this.route.paramMap.subscribe(params=> {
         this.productService.getProduct(params.get("id")).subscribe(resp =>this.products = resp.data);})
         this.route.paramMap.subscribe(params=> {
-        this.router.navigate(["users/",params.get("id"),"products"]);})
+        this.router.navigate(["customers/",params.get("id"),"products"]);})
       },
       error: (e: any) => console.error(e)
     });
     this.route.paramMap.subscribe(params=> {
-      this.router.navigate(["users/"]);
+      this.router.navigate(["customers/"]);
       if (params.has("id")){        
-      this.router.navigate(["users/",params.get("id"),"products"]);
+      this.router.navigate(["customers/",params.get("id"),"products"]);
       }
     })
   }
 
-  deactivateProduct(userId:any, productId:any): void{
-    this.productService.deactivateProduct(userId, productId, this.currentProduct)
+  deactivateProduct(customerId:any, productId:any): void{
+    this.productService.deactivateProduct(customerId, productId, this.currentProduct)
     .subscribe({
       next: (res) => {
         alert("El estado del producto fue actualizado con éxito");
         this.route.paramMap.subscribe(params=> {
         this.productService.getProduct(params.get("id")).subscribe(resp =>this.products = resp.data);})
         this.route.paramMap.subscribe(params=> {
-        this.router.navigate(["users/",params.get("id"),"products"]);})
+        this.router.navigate(["customers/",params.get("id"),"products"]);})
       },
       error: (e: any) => console.error(e)
     });
     this.route.paramMap.subscribe(params=> {
-      this.router.navigate(["users/"]);
+      this.router.navigate(["customers/"]);
       if (params.has("id")){        
-      this.router.navigate(["users/",params.get("id"),"products"]);
+      this.router.navigate(["customers/",params.get("id"),"products"]);
       }
     })
   }
 
-  cancelProduct(userId:any, productId:any): void{
-    this.productService.cancelProduct(userId, productId, this.currentProduct)
+  cancelProduct(customerId:any, productId:any): void{
+    this.productService.cancelProduct(customerId, productId, this.currentProduct)
     .subscribe({
       next: (res) => {
 
@@ -103,7 +103,7 @@ export class ListProductComponent implements OnInit {
         this.route.paramMap.subscribe(params=> {
           this.productService.getProduct(params.get("id")).subscribe(resp =>this.products = resp.data);})
         this.route.paramMap.subscribe(params=> {
-          this.router.navigate(["users/",params.get("id"),"products"]);
+          this.router.navigate(["customers/",params.get("id"),"products"]);
           this.router.routeReuseStrategy.shouldReuseRoute = function() { return false; };
         })
       },
@@ -111,8 +111,8 @@ export class ListProductComponent implements OnInit {
     });
   }
 
-  uncancelProduct(userId:any, productId:any): void{
-    this.productService.uncancelProduct(userId, productId, this.currentProduct)
+  uncancelProduct(customerId:any, productId:any): void{
+    this.productService.uncancelProduct(customerId, productId, this.currentProduct)
     .subscribe({
       next: (res) => {
 
@@ -120,7 +120,7 @@ export class ListProductComponent implements OnInit {
         this.route.paramMap.subscribe(params=> {
           this.productService.getProduct(params.get("id")).subscribe(resp =>this.products = resp.data);})
         this.route.paramMap.subscribe(params=> {
-          this.router.navigate(["users/",params.get("id"),"products"]);
+          this.router.navigate(["customers/",params.get("id"),"products"]);
           this.router.routeReuseStrategy.shouldReuseRoute = function() { return false; };
         })
       },

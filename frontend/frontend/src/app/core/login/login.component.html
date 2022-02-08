@@ -1,0 +1,13 @@
+<div class="container-fluid">
+<form class="login-form">
+    <div class="heading">Welcome to your BankApp</div>
+    <div class="left">
+        <label for="userName">Username</label> <br />
+        <input type="userName" class="form-control" [(ngModel)]="userName" name="userName" required><br />
+        <label for="userName">Password</label> <br />
+        <input type="password" class="form-control" [(ngModel)]="password" name="password" required><br />
+        <input (click)="signIn()" type="submit" class="btn btn-primary" value="Sign In"> <br /> <br />
+        <!-- <input (click)="register()" type="submit" class="btn btn-info" value="Register">  -->
+    </div>
+</form>
+</div>

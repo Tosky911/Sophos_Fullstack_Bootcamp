@@ -1,8 +1,8 @@
 import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Product } from 'src/app/entities/product';
-import { User } from 'src/app/entities/user';
+import { Product } from 'src/app/models/product';
+import { Customer } from 'src/app/models/customer';
 import { ProductService } from 'src/app/services/services/product/product.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class AddProductComponent implements OnInit {
   dateNow = new Date();
 
   products?: Product[];
-  users?: User[];
+  customers?: Customer[];
 
   product: Product = {
     typeAccount: '',
@@ -50,7 +50,7 @@ export class AddProductComponent implements OnInit {
         this.productService.createProduct(data, params.get('id')).subscribe({
           next: () => {
             alert('El producto ha sido creado con éxito');
-            this.router.navigate(['users', params.get('id'), 'products']);
+            this.router.navigate(['customers', params.get('id'), 'products']);
           },
           error: (e) => console.error(e),
         });
@@ -60,7 +60,7 @@ export class AddProductComponent implements OnInit {
 
   backProduct(): void {
     this.route.paramMap.subscribe((params) => {
-      this.router.navigate(['users', params.get('id'), 'products']);
+      this.router.navigate(['customers', params.get('id'), 'products']);
     });
 
   }

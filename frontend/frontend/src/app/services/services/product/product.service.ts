@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http'; 
-import { Product } from 'src/app/entities/product';
+import { Product } from 'src/app/models/product';
 import { GeneralResponse } from 'src/app/shared/models/general-response';
 
 

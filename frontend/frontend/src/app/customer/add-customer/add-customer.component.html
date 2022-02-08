@@ -13,7 +13,7 @@
                     class="form-control" 
                     placeholder="Nombre"
                     name="firstName"
-                    [(ngModel)]="user.firstName"
+                    [(ngModel)]="customer.firstName"
                     required>
                 </div>
                 <div class="form-group col-md-6">
@@ -24,7 +24,7 @@
                     class="form-control" 
                     placeholder="Apellido"
                     name="lastName"
-                    [(ngModel)]="user.lastName"
+                    [(ngModel)]="customer.lastName"
                     required>
                 </div>
                 <div class="form-group col-md-4">
@@ -33,7 +33,7 @@
                     id="typeId"                     
                     class="form-select"                    
                     name="typeId"
-                    [(ngModel)]="user.typeId"
+                    [(ngModel)]="customer.typeId"
                     required>
                         <option value="CC" selected>Cédula ciudadania</option>
                         <option value="PA">Pasaporte</option>
@@ -50,7 +50,7 @@
                     class="form-control" 
                     placeholder="123456789"
                     name="numId"
-                    [(ngModel)]="user.numId"
+                    [(ngModel)]="customer.numId"
                     required>
                 </div>
                 <div class="form-group">
@@ -61,7 +61,7 @@
                     class="form-control" 
                     placeholder="john_doe@email.com"
                     name="email"
-                    [(ngModel)]="user.email"
+                    [(ngModel)]="customer.email"
                     required>                    
                 </div>
                 <div class="form-group col-md-6">
@@ -71,7 +71,7 @@
                     type="date" 
                     class="form-control"                     
                     name="birthdayDate"
-                    [(ngModel)]="user.birthdayDate"
+                    [(ngModel)]="customer.birthdayDate"
                     required>
                 </div>
                 <button (click)="save()" class="btn btn-success" type="submit">Guardar</button>
